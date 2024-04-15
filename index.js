@@ -21,9 +21,10 @@ app.get('/v1/individual-analytics', (req, res) => {
             response.on('data', (chunk) => { data += chunk; });
             // The whole response has been received
             response.on('end', () => {
+                data = JSON.parse(data);
                 responseObj = {
                     'cacheable': false,
-                    'authorised': true
+                    'authorised': data["authorised"]
                 };
                 console.log('Authorisation Verdict: ', data);
                 res.json(responseObj);
