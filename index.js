@@ -29,7 +29,7 @@ app.get('/v1/individual-analytics', (req, res) => {
         response.on('end', () => {
             console.log('Response from Authorisation:', data);
             // Do something with the response data
-            res.send("GET request on individuals resource");
+            res.send("GET request on individuals resource " + data);
         });
     }).on("error", (error) => {
         // Handle errors
