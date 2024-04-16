@@ -13,7 +13,7 @@ const HTTP_PORT = 3001;
 // ------ handle GET requests -----------------------
 
 app.get('/v1/individual-analytics', (req, res) => {
-        let location = "undecided"
+        let location = "undecided";
 // ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
 // ------ COMPARING
         // self (time period) - default = now - specified individual-id and time?
