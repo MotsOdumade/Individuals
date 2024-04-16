@@ -22,17 +22,17 @@ function valid_request(data_requested, client_token, data_about, target_id){
   }
   if (data_about == 'avg-employee'){
         return true;
-  } else {
-        if (target_id = ''){
-              return false;
-        }
-        
-        if (isNaN(target_id)){
-              // it's not a number
-              return false;
-        }
-        return true;
+  } 
+  if (target_id = ''){
+        return false;
   }
+  
+  if (isNaN(target_id)){
+        // it's not a number
+        return false;
+  }
+  return true;
+  
 
 }
 
