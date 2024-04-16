@@ -50,12 +50,17 @@ function valid_request(data_requested, client_token, data_about, target_id){
 
 function authorised(client_token, data_about, target_id){
 
-      // Connect to the database
-      connection.connect((err) => {
+  // Connect to the database
+    connection.connect((err) => {
         if (err) throw err;
-              console.log('Connected to the database');
-
-        // Execute queries or perform database operations here
+        console.log('Connected to the database');
+        // Execute a query
+        let sql_query = "SELECT * FROM client_token";
+        connection.query(sql_query, (err, results) => {
+        if (err) throw err;
+        console.log('Query results:', results);
+    
+            
       });
 
       // Close the connection when done
