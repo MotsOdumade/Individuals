@@ -33,7 +33,7 @@ app.get('/v1/individual-analytics', (req, res) => {
 
 
       // check validity of request
-      if (validRequest(dataRequested, clientToken, dataAbout, targetId) === false){
+      if (valid_request(dataRequested, clientToken, dataAbout, targetId) === false){
             // missing data or wrong keywords specified in the request
             return res.json(responseObj);
       }
