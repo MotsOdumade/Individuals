@@ -33,6 +33,7 @@ app.get('/v1/individual-analytics', (req, res) => {
 
       // check authorisation
       if (authorised(clientToken, dataAbout, targetId) === false){
+            // unauthorised data access
             return res.json(responseObj);
       }
       responseObj['authorised'] = true;
