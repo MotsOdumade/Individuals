@@ -22,7 +22,7 @@ app.get('/v1/individual-analytics', (req, res) => {
 // ------ PIE CHART - completed / not started / in progress active tasks - specify chart = pie, data = task-status
 // ------ PROGRESS BAR - deadlines met in last 7 days - specify chart = progress-bar, data = deadlines-met
 // ------ LINE GRAPH - task weight completion each week specify chart = line, data = weekly-completion
-        res.JSON({'authorised': true, 'data': []});
+        res.json({'authorised': true, 'data': []});
 });
 
 httpServer.listen(HTTP_PORT, () => {
