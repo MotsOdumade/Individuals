@@ -17,8 +17,8 @@ app.get('/v1/individual-analytics', (req, res) => {
        // Handle params
         const dataRequested = (req.query.data || '').trim().replace(/<[^>]*>/g, '');
         const clientToken = (req.query['client-token'] || '').trim().replace(/<[^>]*>/g, '');
-        const dataAbout = (req.query.data-about || '').trim().replace(/<[^>]*>/g, '');
-        const targetId = (req.query.target-id || '').trim().replace(/<[^>]*>/g, '');
+        const dataAbout = (req.query['data-about'] || '').trim().replace(/<[^>]*>/g, '');
+        const targetId = (req.query['target-id'] || '').trim().replace(/<[^>]*>/g, '');
         const when = (req.query.when || '').trim().replace(/<[^>]*>/g, '');
 
         let location = "undecided";
