@@ -15,6 +15,7 @@ const HTTP_PORT = 3001;
 app.get('/v1/individual-analytics', (req, res) => {
         let location = "undecided";
 // ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
+
 // ------ COMPARING
         // self (time period) - default = now - specified individual-id and time?
         // average from team - specified project-id 
@@ -24,6 +25,7 @@ app.get('/v1/individual-analytics', (req, res) => {
 // ------ PROGRESS BAR - deadlines met in last 7 days - specify chart = progress-bar, data = deadlines-met
 // ------ LINE GRAPH - task weight completion each week specify chart = line, data = weekly-completion
         res.json({'authorised': authorised(), 'data': location});
+        res.json({'allowed': true});
 });
 
 httpServer.listen(HTTP_PORT, () => {
