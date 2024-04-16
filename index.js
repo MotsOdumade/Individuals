@@ -1,4 +1,4 @@
-const {authorised, data_to_chart } = require('./helpers');
+const {valid_request, authorised, data_to_chart } = require('./helpers');
 const express = require('express');
 const http = require('http');
 const https = require('https');
