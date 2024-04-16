@@ -23,10 +23,10 @@ app.get('/v1/individual-analytics', (req, res) => {
 
       // prepare the response object
       const responseObj = {
-            'cacheable' = false;
-            'authorised' = false;
-            'chart-type' = '';,
-            'data' = []
+            'cacheable' : false;
+            'authorised' : false;
+            'chart-type' : '';,
+            'data' : []
             
       };
 
