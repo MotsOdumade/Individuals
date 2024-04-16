@@ -10,7 +10,7 @@ const HTTP_PORT = 3001;
 
 
 // Define your Express routes here
-// ------ handle GET requests -----------------------
+// ------ handle GET requests to /v1/individual-analytics -----------------------
 
 app.get('/v1/individual-analytics', (req, res) => {
       
@@ -46,13 +46,10 @@ app.get('/v1/individual-analytics', (req, res) => {
             return res.json(responseObj);
       }
       responseObj['authorised'] = true;
-
-      
       // update response object with expected chart type
       responseObj['chart-type'] = data_to_chart(dataRequested);
 
       
-// ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
 
 // ------ COMPARING
         // self (time period) - specified data-about = self, target-id = user-id and when = time (default = now)
