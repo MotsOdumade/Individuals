@@ -1,3 +1,7 @@
+function valid_request(dataRequested, clientToken, dataAbout, targetId){
+  
+  return true;
+}
 
 function authorised(){
   return true;
@@ -32,4 +36,4 @@ function data_to_chart(dataRequest){
 
 
 
-module.exports = { authorised, data_to_chart};
+module.exports = {valid_request, authorised, data_to_chart};
