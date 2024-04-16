@@ -13,14 +13,14 @@ const HTTP_PORT = 3001;
 // ------ handle GET requests -----------------------
 
 app.get('/v1/individual-analytics', (req, res) => {
-        // handle params
-        const dataRequested = req.query.data.trim().replace(/<[^>]*>/g, '');
-        const clientToken = req.query.client-token.trim();
-        const dataAbout = req.query.data-about.trim().replace(/<[^>]*>/g, '');
-        const targetId = req.query.target-id.trim().replace(/<[^>]*>/g, '');
-        const when = req.query.when.trim().replace(/<[^>]*>/g, '');
-        
-        
+      
+       // Handle params
+        const dataRequested = req.query.data?.trim()?.replace(/<[^>]*>/g, '') || '';
+        const clientToken = req.query['client-token']?.trim()?.replace(/<[^>]*>/g, '') || '';
+        const dataAbout = req.query['data-about']?.trim()?.replace(/<[^>]*>/g, '') || '';
+        const targetId = req.query['target-id']?.trim()?.replace(/<[^>]*>/g, '') || '';
+        const when = req.query.when?.trim()?.replace(/<[^>]*>/g, '') || '';
+
         let location = "undecided";
 // ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
 
