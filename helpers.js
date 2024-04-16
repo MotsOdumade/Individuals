@@ -31,8 +31,9 @@ function valid_request(data_requested, client_token, data_about, target_id){
               // it's not a number
               return false;
         }
+        return true;
   }
-  return true;
+
 }
 
 function authorised(){
