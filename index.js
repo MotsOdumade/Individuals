@@ -13,32 +13,16 @@ const HTTP_PORT = 3001;
 
 app.get('/v1/individual-analytics', (req, res) => {
 
-// ------ first request authorisation from authorisation api
-        const apiCUrl = 'http://localhost:3004/v1/authorisation'; // Assuming authorisation api is running on localhost:3004
-        http.get(apiCUrl, (response) => {
-            let data = '';
-            // 'data' will be an array holding the authorisation status
-            response.on('data', (chunk) => { data += chunk; });
-            // The whole response has been received
-            response.on('end', () => {
-                data = JSON.parse(data);
-                responseObj = {
-                    'cacheable': false,
-                    'authorised': data["authorised"]
-                };
-                console.log('Authorisation Verdict: ', data);
-                res.json(responseObj);
-            });
-
-
-// ------ authorised so can then now carry out the user's request
-            // do something
-            
-// ------ if there was an issue with accessing the authorisation api
-        }).on("error", (error) => {
-                console.error('Error calling authorisation verdict:', error);
-                res.status(500).send('Internal Server Error');
-        });
+// ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
+// ------ COMPARING
+        // self (time period) - default = now - specified individual-id and time?
+        // average from team - specified project-id 
+        // average employee - specified avg-employee as true
+// ------ NUMBER OF PROJECTS - specify data = num-projects
+// ------ PIE CHART - completed / not started / in progress active tasks - specify chart = pie, data = task-status
+// ------ PROGRESS BAR - deadlines met in last 7 days - specify chart = progress-bar, data = deadlines-met
+// ------ LINE GRAPH - task weight completion each week specify chart = line, data = weekly-completion
+        res.JSON({'authorised': true, 'data': []});
 });
 
 httpServer.listen(HTTP_PORT, () => {
