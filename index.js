@@ -24,11 +24,20 @@ app.get('/v1/individual-analytics', (req, res) => {
       // prepare the response object
       const responseObj = {
             'cacheable' : false,
+            'valid-request': false,
             'authorised' : false,
             'chart-type' : '',
             'data' : []
             
       };
+
+
+      // check validity of request
+      if (validRequest(dataRequested, clientToken, dataAbout, targetId) === false){
+            // missing data or wrong keywords specified in the request
+            return res.json(responseObj);
+      }
+      responseObj['valid-request'] = true;
 
 
       // check authorisation
@@ -37,6 +46,12 @@ app.get('/v1/individual-analytics', (req, res) => {
             return res.json(responseObj);
       }
       responseObj['authorised'] = true;
+
+      
+      // update response object with expected chart type
+      responseObj['chart-type'] = data_to_chart(dataRequested);
+
+      
 // ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
 
 // ------ COMPARING
