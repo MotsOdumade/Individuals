@@ -13,7 +13,7 @@ const HTTP_PORT = 3001;
 // ------ handle GET requests -----------------------
 
 app.get('/v1/individual-analytics', (req, res) => {
-
+        let location = "undecided"
 // ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
 // ------ COMPARING
         // self (time period) - default = now - specified individual-id and time?
@@ -23,7 +23,7 @@ app.get('/v1/individual-analytics', (req, res) => {
 // ------ PIE CHART - completed / not started / in progress active tasks - specify chart = pie, data = task-status
 // ------ PROGRESS BAR - deadlines met in last 7 days - specify chart = progress-bar, data = deadlines-met
 // ------ LINE GRAPH - task weight completion each week specify chart = line, data = weekly-completion
-        res.json({'authorised': true, 'data': authorised()});
+        res.json({'authorised': authorised(), 'data': location});
 });
 
 httpServer.listen(HTTP_PORT, () => {
