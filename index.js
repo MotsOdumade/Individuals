@@ -21,7 +21,21 @@ app.get('/v1/individual-analytics', (req, res) => {
         const targetId = (req.query['target-id'] || '').trim().replace(/<[^>]*>/g, '');
         const when = (req.query.when || '').trim().replace(/<[^>]*>/g, '');
 
-        let location = "undecided";
+      // prepare the response object
+      const responseObj = {
+            'cacheable' = false;
+            'authorised' = false;
+            'chart-type' = '';,
+            'data' = []
+            
+      };
+
+
+      // check authorisation
+      if (authorised(clientToken, dataAbout, targetId) === false){
+            return res.json(responseObj);
+      }
+      responseObj['authorised'] = true;
 // ------ AUTHORISATION - specified client-token used to verify client's identity and check if they're authorised to access the requested data
 
 // ------ COMPARING
