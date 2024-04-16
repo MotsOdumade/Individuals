@@ -23,7 +23,7 @@ function valid_request(data_requested, client_token, data_about, target_id){
   if (data_about == 'avg-employee'){
         return true;
   } 
-  if (target_id = ''){
+  if (target_id == ''){
         return false;
   }
   
