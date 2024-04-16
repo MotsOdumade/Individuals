@@ -1,3 +1,13 @@
+const mysql = require('mysql');
+require('dotenv').config();
+
+// Create a connection to the database using environment variables
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
+});
 
 const dataChartDict = {
       'weekly-task-completion': 'line',
@@ -40,10 +50,17 @@ function valid_request(data_requested, client_token, data_about, target_id){
 
 function authorised(client_token, data_about, target_id){
 
-      // match client_token to client id in system - if none matching then return false
-      // if data_about = self then if client id = target_id return true else false
-      // if data_about = avg-employee return true
-      // if data_about = project then if client id is in project with id target_id return true, else false
+      // Connect to the database
+      connection.connect((err) => {
+        if (err) throw err;
+              console.log('Connected to the database');
+
+        // Execute queries or perform database operations here
+      });
+
+      // Close the connection when done
+      connection.end();
+      return false;
   return true;
 }
 
