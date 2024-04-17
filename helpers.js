@@ -52,16 +52,14 @@ function authorised(client_token, data_about, target_id){
 
   // Connect to the database
     connection.connect((err) => {
-        if (err) throw err;
+        if (err) return false;
         console.log('Connected to the database');
         // Execute a query
-        let sql_query = "SELECT * FROM TokenTable";
+        let sql_query = "SELECT * FROM TokenTable;";
         connection.query(sql_query, (err, results) => {
-          if (err) throw err;
-          console.log('Query results:', results);
-    
-            
-      });
+          if (err) return false;
+          console.log('Query results:', results);   
+        });
 
       // Close the connection when done
       connection.end();
