@@ -52,20 +52,25 @@ function authorised(client_token, data_about, target_id){
 
   // Connect to the database
     connection.connect((err) => {
-        if (err) return false;
+        if (err) {
+            console.error('Error connecting to the database:', err);
+            return false; // handle error appropriately
+        }
         console.log('Connected to the database');
         // Execute a query
         let sql_query = "SELECT * FROM TokenTable;";
         connection.query(sql_query, (err, results) => {
-          if (err) return false;
+          if (err) {
+              console.error('Error executing query:', err);
+              return false; // handle error appropriately
+          }
           console.log('Query results:', results);   
-        });
-
-      // Close the connection when done
-      connection.end();
-      
-  return true;
-});
+          // Close the connection when done
+          connection.end();
+          return true; // return inside the query callback
+        });      
+    });
+}
 
 
 
