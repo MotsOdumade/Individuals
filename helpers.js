@@ -64,7 +64,20 @@ function authorised(client_token, data_about, target_id){
               console.error('Error executing query:', err);
               return false; // handle error appropriately
           }
-          console.log('Query results:', results);   
+          console.log('Query results:', results); 
+          // Check if the query returned any rows
+          if (results.length > 0) {
+              // Access specific data within the response
+              results.forEach(row => {
+                  console.log('Token ID:', row.tokenID);
+                  console.log('Employee ID:', row.employeeID);
+                  console.log('Time Generated:', row.timeGenerated);
+                  // Access other fields as needed
+              });
+          } else {
+              console.log('No rows returned from the query.');
+          }
+
           // Close the connection when done
           connection.end();
           return true; // return inside the query callback
