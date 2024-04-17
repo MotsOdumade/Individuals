@@ -57,8 +57,8 @@ function authorised(client_token, data_about, target_id){
         // Execute a query
         let sql_query = "SELECT * FROM TokenTable";
         connection.query(sql_query, (err, results) => {
-        if (err) throw err;
-        console.log('Query results:', results);
+          if (err) throw err;
+          console.log('Query results:', results);
     
             
       });
@@ -67,7 +67,7 @@ function authorised(client_token, data_about, target_id){
       connection.end();
       
   return true;
-}
+});
 
 
 
