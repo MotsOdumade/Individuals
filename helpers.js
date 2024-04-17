@@ -55,7 +55,7 @@ function authorised(client_token, data_about, target_id){
         if (err) throw err;
         console.log('Connected to the database');
         // Execute a query
-        let sql_query = "SELECT * FROM client_token";
+        let sql_query = "SELECT * FROM TokenTable";
         connection.query(sql_query, (err, results) => {
         if (err) throw err;
         console.log('Query results:', results);
