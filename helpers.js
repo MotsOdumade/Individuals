@@ -79,10 +79,12 @@ function authorised(client_token, data_about, target_id){
           }
 
           // Close the connection when done
-          connection.end();
-          return true; // return inside the query callback
+          //connection.end();
+          //return true; // return inside the query callback
         });      
     });
+  connection.end();
+  return true;
 }
 
 
