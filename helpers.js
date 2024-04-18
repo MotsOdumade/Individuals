@@ -106,7 +106,7 @@ function task_status_requested(dataAbout, targetId, when){
     ['Not Started', 2]
   ];
   
-  return title, sampleData;
+  return title sampleData;
 }
 
 
