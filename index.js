@@ -1,4 +1,4 @@
-const {valid_request, authorised, data_to_chart, task_status_request } = require('./helpers');
+const {valid_request, authorised, data_to_chart, task_status_request, num_projects_request } = require('./helpers');
 const express = require('express');
 const http = require('http');
 const https = require('https');
@@ -70,6 +70,10 @@ app.get('/v1/individual-analytics', (req, res) => {
                   // a line chart showing the (weighted) task completion over time (by week) 
                   break;
             case "num-projects":
+                  // a stat describing the number of projects that an individual is currently associated with
+                  const dataObj = num_projects_request(dataAbout, targetId, when);
+                  responseObj['suggested-title'] = dataObj['title'];
+                  responseObj['graph-data'] = dataObj['sampleData'];
                   break;
         
   
