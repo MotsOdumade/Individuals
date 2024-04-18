@@ -95,11 +95,23 @@ function data_to_chart(data_requested){
   return chart;
 }
 
+function task_status_requested(dataAbout, targetId, when){
+  const title = 'Status of Current Tasks';
+  let sampleData = [];
+  // query the database
+  
+  sampleData = [
+    ['Complete', 3],
+    ['In Progress', 1],
+    ['Not Started', 2]
+  ];
+  
+  return title, sampleData;
+}
 
 
 
 
 
 
-
-module.exports = {valid_request, authorised, data_to_chart};
+module.exports = {valid_request, authorised, data_to_chart, task_status_requested};
