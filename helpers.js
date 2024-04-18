@@ -95,6 +95,8 @@ function data_to_chart(data_requested){
   return chart;
 }
 
+// ---- functions to execute requests
+
 function task_status_request(dataAbout, targetId, when){
   const title = 'Status of Current Tasks';
   let sampleData = [];
@@ -110,8 +112,18 @@ function task_status_request(dataAbout, targetId, when){
 }
 
 
+function num_projects_request(dataAbout, targetId, when){
+  const title = 'Number of Current Projects';
+  let sampleData = 0;
+  // query the database
+  
+  sampleData = 4;
+  return {'title': title, 'sampleData': sampleData};
+}
 
 
 
 
-module.exports = {valid_request, authorised, data_to_chart, task_status_request};
+
+
+module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request};
