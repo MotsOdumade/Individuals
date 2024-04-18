@@ -48,9 +48,16 @@ function valid_request(data_requested, client_token, data_about, target_id){
 
 
 
-function authorised(client_token, data_about, target_id){
+function authorised(client_token, data_about, target_id) {
+    // Create a connection to the database using environment variables
+    const connection = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE
+    });
 
-  // Connect to the database
+    // Connect to the database
     connection.connect((err) => {
         if (err) {
             console.error('Error connecting to the database:', err);
@@ -60,31 +67,33 @@ function authorised(client_token, data_about, target_id){
         // Execute a query
         let sql_query = "SELECT * FROM TokenTable;";
         connection.query(sql_query, (err, results) => {
-          if (err) {
-              console.error('Error executing query:', err);
-              return false; // handle error appropriately
-          }
-          console.log('Query results:', results); 
-          // Check if the query returned any rows
-          if (results.length > 0) {
-              // Access specific data within the response
-              results.forEach(row => {
-                  console.log('Token ID:', row.tokenID);
-                  console.log('Employee ID:', row.employeeID);
-                  console.log('Time Generated:', row.timeGenerated);
-                  // Access other fields as needed
-              });
-          } else {
-              console.log('No rows returned from the query.');
-          }
+            if (err) {
+                console.error('Error executing query:', err);
+                connection.end(); // Close the connection if there's an error
+                return false; // handle error appropriately
+            }
+            console.log('Query results:', results);
+            // Check if the query returned any rows
+            if (results.length > 0) {
+                // Access specific data within the response
+                results.forEach(row => {
+                    console.log('Token ID:', row.tokenID);
+                    console.log('Employee ID:', row.employeeID);
+                    console.log('Time Generated:', row.timeGenerated);
+                    // Access other fields as needed
+                });
+            } else {
+                console.log('No rows returned from the query.');
+            }
 
-          // Close the connection when done
-          //connection.end();
-          //return true; // return inside the query callback
-        });      
+            // Close the connection when done
+            connection.end();
+          // ---- ALWAYS RETURNS TRUE!
+            return true; // return inside the query callback
+        });
     });
-  connection.end();
-  return true;
+   
+  
 }
 
 
