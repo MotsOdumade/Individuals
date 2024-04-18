@@ -59,7 +59,7 @@ app.get('/v1/individual-analytics', (req, res) => {
       switch (dataRequested) {
             case "task-status-proportions":
                   // a pie chart showing proportion of current tasks that are in progress, not started or completed
-                  const title, dummy_data = task_status_requested(dataAbout, targetId, when);
+                  const title dummy_data = task_status_requested(dataAbout, targetId, when);
                   responseObj['suggested-title'] = title;
                   responseObj['graph-data'] = dummy_data;
                   break;
