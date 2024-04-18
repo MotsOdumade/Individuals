@@ -1,4 +1,4 @@
-const {valid_request, authorised, data_to_chart, pie_requested } = require('./helpers');
+const {valid_request, authorised, data_to_chart, task_status_requested } = require('./helpers');
 const express = require('express');
 const http = require('http');
 const https = require('https');
@@ -59,7 +59,7 @@ app.get('/v1/individual-analytics', (req, res) => {
       switch (dataRequested) {
             case "task-status-proportions":
                   // a pie chart showing proportion of current tasks that are in progress, not started or completed
-                  const title, dummy_data = pie_requested(dataAbout, targetId, when);
+                  const title, dummy_data = task_status_requested(dataAbout, targetId, when);
                   responseObj['suggested-title'] = title;
                   responseObj['graph-data'] = dummy_data;
                   break;
