@@ -95,7 +95,7 @@ function data_to_chart(data_requested){
   return chart;
 }
 
-function task_status_requested(dataAbout, targetId, when){
+function task_status_request(dataAbout, targetId, when){
   const title = 'Status of Current Tasks';
   let sampleData = [];
   // query the database
@@ -106,7 +106,7 @@ function task_status_requested(dataAbout, targetId, when){
     ['Not Started', 2]
   ];
   
-  return title sampleData;
+  return {'title': title, 'sampleData': sampleData};
 }
 
 
@@ -114,4 +114,4 @@ function task_status_requested(dataAbout, targetId, when){
 
 
 
-module.exports = {valid_request, authorised, data_to_chart, task_status_requested};
+module.exports = {valid_request, authorised, data_to_chart, task_status_request};
