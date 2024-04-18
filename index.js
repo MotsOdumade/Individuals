@@ -1,4 +1,4 @@
-const {valid_request, authorised, data_to_chart } = require('./helpers');
+const {valid_request, authorised, data_to_chart, pie_requested } = require('./helpers');
 const express = require('express');
 const http = require('http');
 const https = require('https');
@@ -27,7 +27,8 @@ app.get('/v1/individual-analytics', (req, res) => {
             'valid-request': false,
             'authorised' : false,
             'chart-type' : '',
-            'data' : []
+            'suggested-title' : '',
+            'graph-data' : []
             
       };
 
@@ -36,19 +37,48 @@ app.get('/v1/individual-analytics', (req, res) => {
       if (valid_request(dataRequested, clientToken, dataAbout, targetId) === false){
             // missing data or wrong keywords specified in the request
             return res.json(responseObj);
+      } else {
+            // update the response object
+            responseObj['valid-request'] = true;
       }
-      responseObj['valid-request'] = true;
+      
 
 
       // check authorisation
       if (authorised(clientToken, dataAbout, targetId) === false){
             // unauthorised data access
             return res.json(responseObj);
+      } else {
+            responseObj['authorised'] = true;
+            // update response object with expected chart type
+            const chartType = data_to_chart(dataRequested);
+            responseObj['chart-type'] = chartType;
       }
-      responseObj['authorised'] = true;
-      // update response object with expected chart type
-      responseObj['chart-type'] = data_to_chart(dataRequested);
-
+      
+      // carry out the request
+      switch (dataRequested) {
+            case "task-status-proportions":
+                  // a pie chart showing proportion of current tasks that are in progress, not started or completed
+                  const title, dummy_data = pie_requested(dataAbout, targetId, when);
+                  responseObj['suggested-title'] = title;
+                  responseObj['graph-data'] = dummy_data;
+                  break;
+            case "deadlines-met":
+                  // a progress-bar showing the proportion of deadlines that the individual has met in the last 7 days
+                  break;
+            case "weekly-task-completion":
+                  // a line chart showing the (weighted) task completion over time (by week) 
+                  break;
+            case "num-projects":
+                  break;
+        
+  
+        default:
+                  // indicates a request option that hasn't yet been implemented
+                  // performance-report
+         
+      }
+      
       
 
 // ------ COMPARING
@@ -65,5 +95,5 @@ app.get('/v1/individual-analytics', (req, res) => {
 });
 
 httpServer.listen(HTTP_PORT, () => {
-    console.log(`HTTP Server is running on port ${HTTP_PORT}`);
+    console.log(`Individuals API Server is running Server is running on port ${HTTP_PORT}`);
 });
