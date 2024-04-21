@@ -1,4 +1,12 @@
-const {valid_request, authorised, data_to_chart, task_status_request, num_projects_request } = require('./helpers');
+const {
+      valid_request,
+      authorised,
+      data_to_chart,
+      task_status_request,
+      num_projects_request,
+      deadlines_met_request
+} = require('./helpers');
+
 const express = require('express');
 const http = require('http');
 const https = require('https');
@@ -65,6 +73,9 @@ app.get('/v1/individual-analytics', (req, res) => {
                   break;
             case "deadlines-met":
                   // a progress-bar showing the proportion of deadlines that the individual has met in the last 7 days
+                  const deadlinesMetObj = deadlines_met_request(dataAbout, targetId, when);
+                  responseObj['suggested-title'] = deadlinesMetObj['title'];
+                  responseObj['analytics-data'] = deadlinesMetObj['sampleData'];
                   break;
             case "weekly-task-completion":
                   // a line chart showing the (weighted) task completion over time (by week) 
