@@ -132,9 +132,17 @@ function num_projects_request(dataAbout, targetId, when){
   return {'title': title, 'sampleData': sampleData};
 }
 
+function deadlines_met_request(dataAbout, targetId, when){
+  const title = 'Number of Deadlines Met';
+  let sampleData = [
+    ['Deadlines Met', 5],
+    ['Total Tasks', 6]
+  ];
+  return {'title': title, 'sampleData': sampleData};
+}
 
 
 
 
 
-module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request};
+module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request};
