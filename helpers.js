@@ -138,6 +138,7 @@ function deadlines_met_request(dataAbout, targetId, when){
     ['Deadlines Met', 5],
     ['Total Tasks', 6]
   ];
+  // could instead use a json format depending on output required for frontend
   return {'title': title, 'sampleData': sampleData};
 }
 
