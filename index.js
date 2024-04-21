@@ -28,7 +28,7 @@ app.get('/v1/individual-analytics', (req, res) => {
             'authorised' : false,
             'chart-type' : '',
             'suggested-title' : '',
-            'graph-data' : []
+            'analytics-data' : []
             
       };
 
@@ -61,7 +61,7 @@ app.get('/v1/individual-analytics', (req, res) => {
                   // a pie chart showing proportion of current tasks that are in progress, not started or completed
                   const taskStatusObj = task_status_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = taskStatusObj['title'];
-                  responseObj['graph-data'] = taskStatusObj['sampleData'];
+                  responseObj['analytics-data'] = taskStatusObj['sampleData'];
                   break;
             case "deadlines-met":
                   // a progress-bar showing the proportion of deadlines that the individual has met in the last 7 days
@@ -73,7 +73,7 @@ app.get('/v1/individual-analytics', (req, res) => {
                   // a stat describing the number of projects that an individual is currently associated with
                   const numProjectsObj = num_projects_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = numProjectsObj['title'];
-                  responseObj['graph-data'] = {'num-projects': numProjectsObj['sampleData']};
+                  responseObj['analytics-data'] = numProjectsObj['sampleData'];
                   break;
         
   
