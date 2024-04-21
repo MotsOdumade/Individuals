@@ -73,7 +73,7 @@ app.get('/v1/individual-analytics', (req, res) => {
                   // a stat describing the number of projects that an individual is currently associated with
                   const numProjectsObj = num_projects_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = numProjectsObj['title'];
-                  responseObj['graph-data'] = numProjectsObj['sampleData'];
+                  responseObj['graph-data'] = {'num-projects': numProjectsObj['sampleData']};
                   break;
         
   
