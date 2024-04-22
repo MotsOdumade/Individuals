@@ -4,7 +4,8 @@ const {
       data_to_chart,
       task_status_request,
       num_projects_request,
-      deadlines_met_request
+      deadlines_met_request,
+      weekly_completion_request
 } = require('./helpers');
 
 const express = require('express');
@@ -78,7 +79,10 @@ app.get('/v1/individual-analytics', (req, res) => {
                   responseObj['analytics-data'] = deadlinesMetObj['sampleData'];
                   break;
             case "weekly-task-completion":
-                  // a line chart showing the (weighted) task completion over time (by week) 
+                  // a line chart showing the (weighted) task completion over time (by week)
+                  const weeklyCompletionObj = weekly_completion_request(dataAbout, targetId, when);
+                  responseObj['suggested-title'] = weeklyCompletionObj['title'];
+                  responseObj['analytics-data'] = weeklyCompletionObj['sampleData'];
                   break;
             case "num-projects":
                   // a stat describing the number of projects that an individual is currently associated with
