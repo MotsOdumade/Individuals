@@ -145,13 +145,13 @@ function deadlines_met_request(dataAbout, targetId, when){
 function weekly_completion_request(dataAbout, targetId, when){
   const title = 'Weighted Task Completion this Week';
   let sampleData = [
-        [new Date(2014, 0, 0),  5.7],
-        [new Date(2014, 0, 1),  8.7],
-        [new Date(2014, 0, 2),   12],
-        [new Date(2014, 0, 3), 15.3],
-        [new Date(2014, 0, 4), 18.6],
-        [new Date(2014, 0, 5), 20.9],
-        [new Date(2014, 0, 6), 19.8],
+        [new Date(2014, 0, 1),  5.7], // represents jan 1st 2014
+        [new Date(2014, 0, 2),  8.7],
+        [new Date(2014, 0, 3),   12],
+        [new Date(2014, 0, 4), 15.3],
+        [new Date(2014, 0, 5), 15.6],
+        [new Date(2014, 0, 6), 20.9],
+        [new Date(2014, 0, 7), 19.8]
       ];
   return {'title': title, 'sampleData': sampleData};
 }
