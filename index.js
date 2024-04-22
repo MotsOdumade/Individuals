@@ -39,6 +39,7 @@ app.get('/v1/individual-analytics', (req, res) => {
             'authorised' : false,
             'chart-type' : '',
             'suggested-title' : '',
+            'description' : 'description of analytics-data',
             'analytics-data' : []
       };
 
