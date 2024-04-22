@@ -142,8 +142,19 @@ function deadlines_met_request(dataAbout, targetId, when){
   return {'title': title, 'sampleData': sampleData};
 }
 
+function weekly_completion_request(dataAbout, targetId, when){
+  const title = 'Weighted Task Completion this Week';
+  let sampleData = [
+        [new Date(2014, 0),  5.7],
+        [new Date(2014, 1),  8.7],
+        [new Date(2014, 2),   12],
+        [new Date(2014, 3), 15.3],
+        [new Date(2014, 4), 18.6],
+        [new Date(2014, 5), 20.9],
+        [new Date(2014, 6), 19.8],
+      ];
+  return {'title': title, 'sampleData': sampleData};
+}
 
 
-
-
-module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request};
+module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request, weekly_completion_request};
