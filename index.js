@@ -1,3 +1,4 @@
+// import functions from helpers.js
 const {
       valid_request,
       authorised,
@@ -23,7 +24,7 @@ const HTTP_PORT = 3001;
 
 app.get('/v1/individual-analytics', (req, res) => {
       
-       // Handle params
+       // clean query parameters
         const dataRequested = (req.query.data || '').trim().replace(/<[^>]*>/g, '');
         const clientToken = (req.query['client-token'] || '').trim().replace(/<[^>]*>/g, '');
         const dataAbout = (req.query['data-about'] || '').trim().replace(/<[^>]*>/g, '');
@@ -31,6 +32,7 @@ app.get('/v1/individual-analytics', (req, res) => {
         const when = (req.query.when || '').trim().replace(/<[^>]*>/g, '');
 
       // prepare the response object
+      // ensure you're using a uniform interface!
       const responseObj = {
             'cacheable' : false,
             'valid-request': false,
@@ -38,11 +40,10 @@ app.get('/v1/individual-analytics', (req, res) => {
             'chart-type' : '',
             'suggested-title' : '',
             'analytics-data' : []
-            
       };
 
 
-      // check validity of request
+      // check validity of request (check if all data required for the request has been given)
       if (valid_request(dataRequested, clientToken, dataAbout, targetId) === false){
             // missing data or wrong keywords specified in the request
             return res.json(responseObj);
@@ -64,7 +65,7 @@ app.get('/v1/individual-analytics', (req, res) => {
             responseObj['chart-type'] = chartType;
       }
       
-      // carry out the request
+      // they're authorised - carry out the request
       switch (dataRequested) {
             case "task-status-proportions":
                   // a pie chart showing proportion of current tasks that are in progress, not started or completed
