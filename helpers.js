@@ -72,7 +72,7 @@ function authorised(client_token, data_about, target_id) {
                 connection.end(); // Close the connection if there's an error
                 return false; // handle error appropriately
             }
-            console.log('Query results:', results);
+            // console.log('Query results:', results);
             // Check if the query returned any rows
             if (results.length > 0) {
                 // Access specific data within the response
