@@ -76,12 +76,14 @@ function authorised(client_token, data_about, target_id) {
             // Check if the query returned any rows
             if (results.length > 0) {
                 // Access specific data within the response
+                /*
                 results.forEach(row => {
                     console.log('Token ID:', row.tokenID);
                     console.log('Employee ID:', row.employeeID);
                     console.log('Time Generated:', row.timeGenerated);
                     // Access other fields as needed
                 });
+                */
             } else {
                 console.log('No rows returned from the query.');
             }
