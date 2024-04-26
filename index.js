@@ -1,3 +1,4 @@
+// functions that need updating to actually query the database are in helpers.js
 // import functions from helpers.js
 const {
       valid_request,
@@ -108,9 +109,9 @@ app.get('/v1/individual-analytics', (req, res) => {
         // average employee - specified data-about =  avg-employee
 // ------ NUMBER OF PROJECTS - specify data = num-projects
 // ------ PERFORMANCE REPORT - specify data = performance-report
-// ------ PIE CHART - completed / not started / in progress active tasks - specify chart = pie, data = task-status-proportions
-// ------ PROGRESS BAR - deadlines met in last 7 days - specify chart = progress-bar, data = deadlines-met
-// ------ LINE GRAPH - task weight completion each week specify chart = line, data = weekly-task-completion
+// ------ PIE CHART - completed / not started / in progress active tasks - specify data = task-status-proportions
+// ------ PROGRESS BAR - deadlines met in last 7 days - specify data = deadlines-met
+// ------ LINE GRAPH - task weight completion each week specify data = weekly-task-completion
         return res.json(responseObj);
 
 });
