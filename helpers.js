@@ -1,3 +1,7 @@
+// functions defined here will be used in index.js
+// database credentials are specified in a .env file stored within the same package on the remote machine
+// check authorised() for an example of how to query the database and process the results
+
 const mysql = require('mysql');
 require('dotenv').config();
 
@@ -49,6 +53,9 @@ function valid_request(data_requested, client_token, data_about, target_id){
 
 
 function authorised(client_token, data_about, target_id) {
+    /* if the user is in the project or the user is requesting data about themself or the average employee 
+    then authorise, else unauthorised */
+    // at the moment, the function always returns true
     // Create a connection to the database using environment variables
     const connection = mysql.createConnection({
         host: process.env.DB_HOST,
@@ -61,11 +68,12 @@ function authorised(client_token, data_about, target_id) {
     connection.connect((err) => {
         if (err) {
             console.error('Error connecting to the database:', err);
-            return false; // handle error appropriately
+            return false; 
         }
         console.log('Connected to the database');
+        
+        const sql_query = "SELECT * FROM TokenTable;";
         // Execute a query
-        let sql_query = "SELECT * FROM TokenTable;";
         connection.query(sql_query, (err, results) => {
             if (err) {
                 console.error('Error executing query:', err);
@@ -73,9 +81,10 @@ function authorised(client_token, data_about, target_id) {
                 return false; // handle error appropriately
             }
             // console.log('Query results:', results);
+            // now can access any results returned
             // Check if the query returned any rows
             if (results.length > 0) {
-                // Access specific data within the response
+                // Access specific data within the response, e.g.
                 /*
                 results.forEach(row => {
                     console.log('Token ID:', row.tokenID);
@@ -87,15 +96,17 @@ function authorised(client_token, data_about, target_id) {
             } else {
                 console.log('No rows returned from the query.');
             }
+            
 
-            // Close the connection when done
+            // Close the connection when done - do inside the query callback 
             connection.end();
-          // ---- ALWAYS RETURNS TRUE!
             return true; // return inside the query callback
+            // end of query function
         });
+      // end of connect function
     });
    
-  
+// end of authorised function
 }
 
 
