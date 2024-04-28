@@ -18,7 +18,8 @@ const dataChartDict = {
       'deadlines-met': 'progressBar',
       'task-status-proportions': 'pie',
       'performance-report': 'stat',
-      'num-projects': 'stat'
+      'num-projects': 'stat',
+      'member-projects': 'list'
       // performance-report ought to be broken down further
 };
 
@@ -113,8 +114,7 @@ function authorised(client_token, data_about, target_id) {
 
 function data_to_chart(data_requested){
   
-  // -- matches dataRequest to a chart type
-  // -- dataToChart = [weekly-task-completion: 'line', deadlines-met: 'progressBar', task-status-proportions: 'pie', performance-report: 'stat', num-projects: 'stat'];
+  // -- matches dataRequest to a chart type - probably unnecessary
   const chart = dataChartDict[data_requested];
   return chart;
 }
@@ -169,5 +169,23 @@ function weekly_completion_request(dataAbout, targetId, when){
   return {'title': title, 'sampleData': sampleData};
 }
 
+function member_projects_request(dataAbout, targetId, when){
+  const title = 'Projects Involved In';
+  let sampleData = [];
+  // query the database
+  
+  sampleData = [
+    {'project_id': '1201', 'project_name': 'Skill Swap Initiative'},
+    {'project_id': '1205', 'project_name': 'Office Connect Project'},
+    {'project_id': '1202', 'project_name': 'Corporate Social Responsibility Campaign'},
+    {'project_id': '1204', 'project_name': 'Employee Training and Development Initiative'},
+    {'project_id': '1209', 'project_name': 'Customer Experience Enhancement Project'},
+    {'project_id': '1207', 'project_name': 'Performance Management System Upgrade'},
+    {'project_id': '1200', 'project_name': 'Risk Management and Compliance Review'},
+  ];
+  
+  return {'title': title, 'sampleData': sampleData};
+}
 
-module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request, weekly_completion_request};
+
+module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request, weekly_completion_request, member_projects_request};
