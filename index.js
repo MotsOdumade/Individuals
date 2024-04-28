@@ -95,8 +95,8 @@ app.get('/v1/individual-analytics', (req, res) => {
                   responseObj['analytics-data'] = numProjectsObj['sampleData'];
                   break;
             case "member-projects":
-                  // returning a list of projects that the user is a member of 
-                  const memberProjectsObj = member_projects_request(dataAbout, targetId, when);
+                  // returning a list of objects representing the projects that the user is a member of 
+                  const memberProjectsObj = member_projects_request(targetId);
                   responseObj['suggested-title'] = memberProjectsObj['title'];
                   responseObj['analytics-data'] = memberProjectsObj['sampleData'];
                   break;
