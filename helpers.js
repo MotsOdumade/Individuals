@@ -169,19 +169,20 @@ function weekly_completion_request(dataAbout, targetId, when){
   return {'title': title, 'sampleData': sampleData};
 }
 
-function member_projects_request(dataAbout, targetId, when){
+function member_projects_request(targetId){
+  // returns a list of objects representing the projects that the individual is currently in
   const title = 'Projects Involved In';
   let sampleData = [];
   // query the database
   
   sampleData = [
-    {'project_id': '1201', 'project_name': 'Skill Swap Initiative'},
-    {'project_id': '1205', 'project_name': 'Office Connect Project'},
-    {'project_id': '1202', 'project_name': 'Corporate Social Responsibility Campaign'},
-    {'project_id': '1204', 'project_name': 'Employee Training and Development Initiative'},
-    {'project_id': '1209', 'project_name': 'Customer Experience Enhancement Project'},
-    {'project_id': '1207', 'project_name': 'Performance Management System Upgrade'},
-    {'project_id': '1200', 'project_name': 'Risk Management and Compliance Review'},
+    {'project-id': '1201', 'project-name': 'Skill Swap Initiative'},
+    {'project-id': '1205', 'project-name': 'Office Connect Project'},
+    {'project-id': '1202', 'project-name': 'Corporate Social Responsibility Campaign'},
+    {'project-id': '1204', 'project-name': 'Employee Training and Development Initiative'},
+    {'project-id': '1209', 'project-name': 'Customer Experience Enhancement Project'},
+    {'project-id': '1207', 'project-name': 'Performance Management System Upgrade'},
+    {'project-id': '1200', 'project-name': 'Risk Management and Compliance Review'},
   ];
   
   return {'title': title, 'sampleData': sampleData};
