@@ -7,7 +7,8 @@ const {
       task_status_request,
       num_projects_request,
       deadlines_met_request,
-      weekly_completion_request
+      weekly_completion_request,
+      member_projects_request
 } = require('./helpers');
 
 const express = require('express');
@@ -93,7 +94,12 @@ app.get('/v1/individual-analytics', (req, res) => {
                   responseObj['suggested-title'] = numProjectsObj['title'];
                   responseObj['analytics-data'] = numProjectsObj['sampleData'];
                   break;
-        
+            case "member-projects":
+                  // returning a list of projects that the user is a member of 
+                  const memberProjectsObj = member_projects_request(dataAbout, targetId, when);
+                  responseObj['suggested-title'] = memberProjectsObj['title'];
+                  responseObj['analytics-data'] = memberProjectsObj['sampleData'];
+                  break;
   
         default:
                   // indicates a request option that hasn't yet been implemented
