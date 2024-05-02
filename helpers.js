@@ -15,7 +15,7 @@ const dataChartDict = {
       // performance-report ought to be broken down further
 };
 
-const listDataAbout = ['self', 'project', 'avg-employee'];
+const listDataAbout = ['self', 'project', 'avg-employee']; // all-projects option is handles separately
 
 function execute_sql_query(sql_query){
   // Create a connection to the database using environment variables
@@ -71,10 +71,10 @@ function valid_request(data_requested, access_code, data_about, target_id){
   if (access_code == ''){
         return false;
   }
-  if (listDataAbout.includes(data_about) === false){
+  if ((listDataAbout.includes(data_about) === false) && (data_requested != 'member-projects')){ // data-about isn't required for 'member-projects'
         return false;
   }
-  if (data_about == 'avg-employee'){
+  if (data_about == 'avg-employee'){ // target-id isn't required for avg-employee
         return true;
   } 
   if (target_id == ''){
@@ -170,11 +170,11 @@ function member_projects_request(targetId){
   sampleData = [
     {'project-id': '1201', 'project-name': 'Skill Swap Initiative'},
     {'project-id': '1205', 'project-name': 'Office Connect Project'},
-    {'project-id': '1202', 'project-name': 'Corporate Social Responsibility Campaign'},
-    {'project-id': '1204', 'project-name': 'Employee Training and Development Initiative'},
-    {'project-id': '1209', 'project-name': 'Customer Experience Enhancement Project'},
-    {'project-id': '1207', 'project-name': 'Performance Management System Upgrade'},
-    {'project-id': '1200', 'project-name': 'Risk Management and Compliance Review'},
+    {'project-id': '1202', 'project-name': 'CSR Campaign'},
+    {'project-id': '1204', 'project-name': 'Employee Training'},
+    {'project-id': '1209', 'project-name': 'Volunteering Campaign'},
+    {'project-id': '1207', 'project-name': 'Management System Upgrade'},
+    {'project-id': '1200', 'project-name': 'Risk Management Review'},
   ];
   
   return {'title': title, 'sampleData': sampleData};
