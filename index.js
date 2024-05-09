@@ -6,6 +6,7 @@ const {
       data_to_chart,
       task_status_request,
       num_projects_request,
+      num_tasks_request,
       deadlines_met_request,
       weekly_completion_request,
       member_projects_request,
@@ -94,6 +95,12 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   const numProjectsObj = num_projects_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = numProjectsObj['title'];
                   responseObj['analytics-data'] = numProjectsObj['sampleData'];
+                  break;
+            case "num-tasks":
+                  // a stat describing the number of tasks that an individual is currently associated with
+                  const numTasksObj = num_tasks_request(dataAbout, targetId, when);
+                  responseObj['suggested-title'] = numTasksObj['title'];
+                  responseObj['analytics-data'] = numTasksObj['sampleData'];
                   break;
             case "member-projects":
                   // returning a list of objects representing the projects that the user is a member of 
