@@ -101,7 +101,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   responseObj['suggested-title'] = memberProjectsObj['title'];
                   responseObj['analytics-data'] = memberProjectsObj['sampleData'];
                   break;
-            case "task_weight_breakdown":
+            case "task-weight-breakdown":
                   // returning a json object for chart js's Chart(pieCtx, {}) function
                   const taskWeightsObj = task_weight_breakdown_request(targetId);
                   responseObj['suggested-title'] = taskWeightsObj['title'];
