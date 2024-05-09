@@ -9,7 +9,6 @@ const dataChartDict = {
       'weekly-task-completion': 'line',
       'deadlines-met': 'progressBar',
       'task-status-proportions': 'pie',
-      'performance-report': 'stat',
       'num-projects': 'stat',
       'member-projects': 'list',
       'task-weight-breakdown': 'pie',
