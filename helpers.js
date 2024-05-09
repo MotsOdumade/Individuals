@@ -161,7 +161,7 @@ function deadlines_met_request(dataAbout, targetId, when){
 function weekly_completion_request(dataAbout, targetId, when){
 
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const labels = [daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()]];
+  const labels = [daysOfWeek[new Date('1714760258' * 1000).getDay()], daysOfWeek[new Date('1714846658' * 1000).getDay()], daysOfWeek[new Date('1714933058' * 1000).getDay()], daysOfWeek[new Date('1715019458' * 1000).getDay()], daysOfWeek[new Date('1715105858' * 1000).getDay()], daysOfWeek[new Date('1715192258' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()]];
   const sampleData = {
     labels: labels,
     datasets: [{
