@@ -159,18 +159,25 @@ function deadlines_met_request(dataAbout, targetId, when){
 }
 
 function weekly_completion_request(dataAbout, targetId, when){
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const labels = [months[new Date('1714760258' * 1000).getMonth()], months[new Date('1714846658' * 1000).getMonth()], months[new Date('1714933058' * 1000).getMonth()], months[new Date('1715019458' * 1000).getMonth()], months[new Date('1715105858' * 1000).getMonth()], months[new Date('1715192258' * 1000).getMonth()], months[new Date('1715281523' * 1000).getMonth()]];
   const sampleData = {
-    labels: labels,
-    datasets: [{
-      label: 'Performance',
-      data: [65, 59, 80, 81, 56, 55, 40],
-      fill: false,
-      borderColor: 'blue',
-      tension: 0.1
-    }]
-  };
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Performance',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                borderColor: 'blue',
+                fill: false
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Performance Over Time'
+            },
+            responsive: false
+        }
+    };
   const title = 'Weighted Task Completion this Week';
   return {'title': title, 'sampleData': sampleData};
 }
