@@ -198,25 +198,23 @@ function task_weight_breakdown_request(targetId){
       // sampleData component can be used directly in Chart js's Chart(pieCtx, {}) function
       const title = "Task Weight Breakdown";
       const sampleData = {
-            type: 'pie',
-            data: {
-                  // task names
-                  labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6'],
-                  datasets: [{
-                        label: 'Task Status',
-                        // the task weights corresponding to each task
-                        data: [10, 5, 15, 30, 20, 20],
-                        backgroundColor: generateHexColors(6)
-                  }]
-            },
-            options: {
-                  title: {
-                        display: true,
-                        text: 'Task Status'
-                  },
-                  responsiveness: false
-            }
-      };
+    type: 'pie',
+    data: {
+        labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6'],
+        datasets: [{
+            label: 'Task Status',
+            data: [10, 5, 15, 30, 20, 20],
+            backgroundColor: ['#d62728 ', '#9467bd ', '#2ca02c', '#1f77b4', '#ff7f0e', '#ffbb00']
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Task Status'
+        },
+        responsive: false
+    }
+  };
       
       
 
