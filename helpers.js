@@ -11,7 +11,8 @@ const dataChartDict = {
       'task-status-proportions': 'pie',
       'performance-report': 'stat',
       'num-projects': 'stat',
-      'member-projects': 'list'
+      'member-projects': 'list',
+      'task-weight-breakdown': 'pie'
       // performance-report ought to be broken down further
 };
 
@@ -180,5 +181,49 @@ function member_projects_request(targetId){
   return {'title': title, 'sampleData': sampleData};
 }
 
+function generateHexColors(numColors) {
+  var colors = [];
+  for (var i = 0; i < numColors; i++) {
+    var color = '#';
+    // Generate each component of the color
+    for (var j = 0; j < 6; j++) {
+      color += Math.floor(Math.random() * 16).toString(16); // Random hex digit
+    }
+    colors.push(color);
+  }
+  return colors;
+}
 
-module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request, weekly_completion_request, member_projects_request};
+function task_weight_breakdown_request(targetId){
+      // sampleData component can be used directly in Chart js's Chart(pieCtx, {}) function
+      const title = "Task Weight Breakdown";
+      const sampleData = {
+            type: 'pie',
+            data: {
+                  // task names
+                  labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6'],
+                  datasets: [{
+                        label: 'Task Status',
+                        // the task weights corresponding to each task
+                        data: [10, 5, 15, 30, 20, 20],
+                        backgroundColor: generateHexColors(6)
+                  }]
+            },
+            options: {
+                  title: {
+                        display: true,
+                        text: 'Task Status'
+                  },
+                  responsiveness: false
+            }
+      };
+      
+      
+
+      
+      
+      return {'title': title, 'sampleData': sampleData};
+}
+
+
+module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request, weekly_completion_request, member_projects_request, task_weight_breakdown_request};
