@@ -159,7 +159,6 @@ function deadlines_met_request(dataAbout, targetId, when){
 }
 
 function weekly_completion_request(dataAbout, targetId, when){
-  const month = date.getMonth();
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const labels = [months[new Date('1714760258' * 1000).getMonth()], months[new Date('1714846658' * 1000).getMonth()], months[new Date('1714933058' * 1000).getMonth()], months[new Date('1715019458' * 1000).getMonth()], months[new Date('1715105858' * 1000).getMonth()], months[new Date('1715192258' * 1000).getMonth()], months[new Date('1715281523' * 1000).getMonth()]];
   const sampleData = {
