@@ -12,7 +12,8 @@ const dataChartDict = {
       'performance-report': 'stat',
       'num-projects': 'stat',
       'member-projects': 'list',
-      'task-weight-breakdown': 'pie'
+      'task-weight-breakdown': 'pie',
+      'num-tasks': 'stat'
       // performance-report ought to be broken down further
 };
 
@@ -138,6 +139,16 @@ function num_projects_request(dataAbout, targetId, when){
   return {'title': title, 'sampleData': sampleData};
 }
 
+function num_tasks_request(dataAbout, targetId, when){
+  const title = 'Number of Current Tasks';
+  let sampleData = 0;
+  // query the database
+  
+  sampleData = 10;
+  return {'title': title, 'sampleData': sampleData};
+}
+
+
 function deadlines_met_request(dataAbout, targetId, when){
   const title = 'Number of Deadlines Met';
   let sampleData = [
@@ -224,4 +235,4 @@ function task_weight_breakdown_request(targetId){
 }
 
 
-module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, deadlines_met_request, weekly_completion_request, member_projects_request, task_weight_breakdown_request};
+module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, num_tasks_request, deadlines_met_request, weekly_completion_request, member_projects_request, task_weight_breakdown_request};
