@@ -159,16 +159,20 @@ function deadlines_met_request(dataAbout, targetId, when){
 }
 
 function weekly_completion_request(dataAbout, targetId, when){
+
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const labels = [daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()], daysOfWeek[new Date('1715281523' * 1000).getDay()]];
+  const sampleData = {
+    labels: labels,
+    datasets: [{
+      label: 'Performance',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      fill: false,
+      borderColor: 'blue',
+      tension: 0.1
+    }]
+  };
   const title = 'Weighted Task Completion this Week';
-  let sampleData = [
-        [new Date(2014, 0, 1),  5.7], // represents jan 1st 2014
-        [new Date(2014, 0, 2),  8.7],
-        [new Date(2014, 0, 3),   12],
-        [new Date(2014, 0, 4), 15.3],
-        [new Date(2014, 0, 5), 15.6],
-        [new Date(2014, 0, 6), 20.9],
-        [new Date(2014, 0, 7), 19.8]
-      ];
   return {'title': title, 'sampleData': sampleData};
 }
 
