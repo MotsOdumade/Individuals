@@ -8,7 +8,8 @@ const {
       num_projects_request,
       deadlines_met_request,
       weekly_completion_request,
-      member_projects_request
+      member_projects_request,
+      task_weight_breakdown_request
 } = require('./helpers');
 
 const express = require('express');
@@ -99,6 +100,12 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   const memberProjectsObj = member_projects_request(targetId);
                   responseObj['suggested-title'] = memberProjectsObj['title'];
                   responseObj['analytics-data'] = memberProjectsObj['sampleData'];
+                  break;
+            case "task_weight_breakdown":
+                  // returning a json object for chart js's Chart(pieCtx, {}) function
+                  const taskWeightsObj = task_weight_breakdown_request(targetId);
+                  responseObj['suggested-title'] = taskWeightsObj['title'];
+                  responseObj['analytics-data'] = taskWeightsObj['sampleData'];
                   break;
   
         default:
