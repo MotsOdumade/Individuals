@@ -271,7 +271,7 @@ function task_weight_breakdown_request(targetId){
     data: {
         labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6'],
         datasets: [{
-            label: 'Task Status',
+            label: 'Task Weight',
             data: [10, 5, 15, 30, 20, 20],
             backgroundColor: ['#d62728 ', '#9467bd ', '#2ca02c', '#1f77b4', '#ff7f0e', '#ffbb00']
         }]
