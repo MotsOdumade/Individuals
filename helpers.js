@@ -172,14 +172,6 @@ async function num_tasks_request(dataAbout, targetId, when){
   
   
 }
-function num_tasks_request(dataAbout, targetId, when){
-  const title = 'Number of Current Tasks';
-  let sampleData = 0;
-  // query the database
-  
-  sampleData = 10;
-  return {'title': title, 'sampleData': sampleData};
-}
 
 
 function deadlines_met_request(dataAbout, targetId, when){
