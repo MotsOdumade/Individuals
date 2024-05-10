@@ -131,11 +131,17 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   return res.json(responseObj);
                   break;
             case "task-weight-breakdown":
-                  // returning a json object for chart js's Chart(pieCtx, {}) function
-                  const taskWeightsObj = task_weight_breakdown_request(targetId);
-                  responseObj['suggested-title'] = taskWeightsObj['title'];
-                  responseObj['analytics-data'] = taskWeightsObj['sampleData'];
-                  return res.json(responseObj);
+                  task_weight_breakdown_request(dataAbout, targetId, when)
+                      .then(taskWeightsObj => {
+                          responseObj['suggested-title'] = taskWeightsObj['title'];
+                          responseObj['analytics-data'] = taskWeightsObj['sampleData'];
+                          res.json(responseObj);
+                      })
+                      .catch(error => {
+                          console.error('Error fetching number of projects:', error);
+                          // Handle the error here
+                          res.status(500).json({ error: 'Internal server error' });
+                      });
                   break;
   
         default:
