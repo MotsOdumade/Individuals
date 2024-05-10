@@ -139,13 +139,14 @@ async function num_projects_request(dataAbout, targetId, when){
     let queryData = await execute_sql_query(sql_query);
     if (queryData.length > 0){
       sampleData = queryData[0]["Projects"];
+      return {'title': title, 'sampleData': sampleData};
     }
   } catch (error) {
     console.error('Error executing SQL query:', error);
     // Handle the error here
   }
   
-  return {'title': title, 'sampleData': sampleData};
+  
 }
 
 function num_tasks_request(dataAbout, targetId, when){
