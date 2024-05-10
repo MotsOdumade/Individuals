@@ -206,6 +206,23 @@ function deadlines_met_request(dataAbout, targetId, when){
   // could instead use a json format depending on output required for frontend
   return {'title': title, 'sampleData': sampleData};
 }
+// Assuming dateStr is in the format "yyyy-m" (e.g., "2024-5")
+function getMonthFromDateStr(dateStr) {
+    // Split the date string into year and month parts
+    const [year, month] = dateStr.split('-');
+    
+    // Create a new Date object with the given year and month (subtracting 1 from month since months are zero-based)
+    const date = new Date(parseInt(year), parseInt(month) - 1);
+    
+    // Get the month from the date object (0-indexed)
+    const monthIndex = date.getMonth();
+    
+    // Convert the month index to month name
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthName = months[monthIndex];
+    
+    return monthName;
+}
 
 async function weekly_completion_request(targetId){
   const sampleData = {
@@ -242,7 +259,7 @@ async function weekly_completion_request(targetId){
     // query the database
     let queryData = await execute_sql_query(sql_query);
     for (let i = 0; i < queryData.length; i++){
-           sampleData['data']['labels'].push(queryData[i]['Month']);
+           sampleData['data']['labels'].push(getMonthFromDateStr(queryData[i]['Month']));
            sampleData['data']['datasets'][0]['data'].push(queryData[i]['TotalWeight']);
      }
     
