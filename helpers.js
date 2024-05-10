@@ -285,7 +285,7 @@ async function task_weight_breakdown_request(targetId){
         AND assigned_user_id = ${targetId};
         `;
       const sampleData = {
-          type: 'pie',
+          type: 'doughnut',
           data: {
               labels: [],
               datasets: [{
