@@ -149,7 +149,29 @@ async function num_projects_request(dataAbout, targetId, when){
   
   
 }
-
+async function num_tasks_request(dataAbout, targetId, when){
+  const title = 'Number of Active Tasks';
+  let sql_query = `SELECT COUNT(*) AS Tasks FROM task 
+        LEFT JOIN task_start 
+        ON task.id = task_start.task_id
+        WHERE task_complete.task_id IS NULL AND deadline > STR_TO_DATE('2024-05-17 13:42:04', '%Y-%m-%d %H:%i:%s') 
+        AND assigned_user_id = ${targetId};`;
+  let sampleData = 0;
+  try {
+    // query the database
+    let queryData = await execute_sql_query(sql_query);
+    if (queryData.length > 0){
+      sampleData = queryData[0]["Tasks"];
+    } 
+      console.log("num_projects has waited for sql query and got back this many rows", queryData.length);
+    return {'title': title, 'sampleData': sampleData};
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    // Handle the error here
+  }
+  
+  
+}
 function num_tasks_request(dataAbout, targetId, when){
   const title = 'Number of Current Tasks';
   let sampleData = 0;
