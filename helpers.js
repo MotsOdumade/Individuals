@@ -207,7 +207,7 @@ function deadlines_met_request(dataAbout, targetId, when){
   return {'title': title, 'sampleData': sampleData};
 }
 
-function weekly_completion_request(dataAbout, targetId, when){
+async function weekly_completion_request(dataAbout, targetId, when){
   const sampleData = {
         type: 'line',
         data: {
