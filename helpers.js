@@ -139,8 +139,9 @@ async function num_projects_request(dataAbout, targetId, when){
     let queryData = await execute_sql_query(sql_query);
     if (queryData.length > 0){
       sampleData = queryData[0]["Projects"];
-      return {'title': title, 'sampleData': sampleData};
-    }
+    } 
+      console.log("num_projects has waited for sql query and got back", queryData);
+    return {'title': title, 'sampleData': sampleData};
   } catch (error) {
     console.error('Error executing SQL query:', error);
     // Handle the error here
