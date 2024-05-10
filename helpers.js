@@ -258,7 +258,7 @@ async function weekly_completion_request(targetId){
   try {
     // query the database
     let queryData = await execute_sql_query(sql_query);
-    for (let i = 0; i < queryData.length; i++){
+    for (let i = queryData.length; i>= 0; i--){
            sampleData['data']['labels'].push(getMonthFromDateStr(queryData[i]['Month']));
            sampleData['data']['datasets'][0]['data'].push(queryData[i]['TotalWeight']);
      }
