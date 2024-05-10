@@ -82,18 +82,21 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   const taskStatusObj = task_status_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = taskStatusObj['title'];
                   responseObj['analytics-data'] = taskStatusObj['sampleData'];
+                  return res.json(responseObj);
                   break;
             case "deadlines-met":
                   // a progress-bar showing the proportion of deadlines that the individual has met in the last 7 days
                   const deadlinesMetObj = deadlines_met_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = deadlinesMetObj['title'];
                   responseObj['analytics-data'] = deadlinesMetObj['sampleData'];
+                  return res.json(responseObj);
                   break;
             case "weekly-task-completion":
                   // a line chart showing the (weighted) task completion over time (by week)
                   const weeklyCompletionObj = weekly_completion_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = weeklyCompletionObj['title'];
                   responseObj['analytics-data'] = weeklyCompletionObj['sampleData'];
+                  return res.json(responseObj);
                   break;
             case "num-projects":
             // a stat describing the number of projects that an individual is currently associated with
@@ -114,18 +117,21 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   const numTasksObj = num_tasks_request(dataAbout, targetId, when);
                   responseObj['suggested-title'] = numTasksObj['title'];
                   responseObj['analytics-data'] = numTasksObj['sampleData'];
+                  return res.json(responseObj);
                   break;
             case "member-projects":
                   // returning a list of objects representing the projects that the user is a member of 
                   const memberProjectsObj = member_projects_request(targetId);
                   responseObj['suggested-title'] = memberProjectsObj['title'];
                   responseObj['analytics-data'] = memberProjectsObj['sampleData'];
+                  return res.json(responseObj);
                   break;
             case "task-weight-breakdown":
                   // returning a json object for chart js's Chart(pieCtx, {}) function
                   const taskWeightsObj = task_weight_breakdown_request(targetId);
                   responseObj['suggested-title'] = taskWeightsObj['title'];
                   responseObj['analytics-data'] = taskWeightsObj['sampleData'];
+                  return res.json(responseObj);
                   break;
   
         default:
@@ -145,7 +151,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
 // ------ PIE CHART - completed / not started / in progress active tasks - specify data = task-status-proportions
 // ------ PROGRESS BAR - deadlines met in last 7 days - specify data = deadlines-met
 // ------ LINE GRAPH - task weight completion each week specify data = weekly-task-completion
-        return res.json(responseObj);
+        
 
 });
 
