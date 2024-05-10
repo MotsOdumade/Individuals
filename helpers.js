@@ -266,7 +266,7 @@ function generateHexColors(numColors) {
 async function task_weight_breakdown_request(targetId){
       // sampleData component can be used directly in Chart js's Chart(pieCtx, {}) function
       const title = "Task Weight Breakdown";
-      const sql_query = `SELECT name, weight FROM task WHERE assigned_user_id = ${targetId};`;
+      const sql_query = `SELECT name, weight FROM task WHERE assigned_user_id = ${targetId} and name not like 'Old';`;
       const sampleData = {
           type: 'pie',
           data: {
