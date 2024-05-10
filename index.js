@@ -97,24 +97,33 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   break;
             case "num-projects":
             // a stat describing the number of projects that an individual is currently associated with
-            num_projects_request(dataAbout, targetId, when)
-                .then(numProjectsObj => {
-                    responseObj['suggested-title'] = numProjectsObj['title'];
-                    responseObj['analytics-data'] = numProjectsObj['sampleData'];
-                    res.json(responseObj);
-                })
-                .catch(error => {
-                    console.error('Error fetching number of projects:', error);
-                    // Handle the error here
-                    res.status(500).json({ error: 'Internal server error' });
-                });
-            break;
+                  num_projects_request(dataAbout, targetId, when)
+                      .then(numProjectsObj => {
+                          responseObj['suggested-title'] = numProjectsObj['title'];
+                          responseObj['analytics-data'] = numProjectsObj['sampleData'];
+                          res.json(responseObj);
+                      })
+                      .catch(error => {
+                          console.error('Error fetching number of projects:', error);
+                          // Handle the error here
+                          res.status(500).json({ error: 'Internal server error' });
+                      });
+                  break;
             case "num-tasks":
                   // a stat describing the number of tasks that an individual is currently associated with
-                  const numTasksObj = num_tasks_request(dataAbout, targetId, when);
-                  responseObj['suggested-title'] = numTasksObj['title'];
-                  responseObj['analytics-data'] = numTasksObj['sampleData'];
-                  return res.json(responseObj);
+                  const numTasksObj = num_tasks_request(dataAbout, targetId, when)
+                        .then(numTasksObj => {
+                              responseObj['suggested-title'] = numTasksObj['title'];
+                              responseObj['analytics-data'] = numTasksObj['sampleData'];
+                              return res.json(responseObj);
+                        })
+                        .catch(error => {
+                              console.error('Error fetching number of tasks:', error);
+                                // Handle the error here
+                                res.status(500).json({ error: 'Internal server error' });
+                        });
+                  
+                  
                   break;
             case "member-projects":
                   // returning a list of objects representing the projects that the user is a member of 
