@@ -228,7 +228,7 @@ function weekly_completion_request(dataAbout, targetId, when){
         }
     };
   const title = 'Weighted Task Completion this Week';
-  const sql_query = SELECT CONCAT(
+  const sql_query = `SELECT CONCAT(
         YEAR(task_complete.complete_date),'-', 
         MONTH(task_complete.complete_date)) AS Month, 
         SUM(task.weight) AS TotalWeight 
@@ -237,7 +237,7 @@ function weekly_completion_request(dataAbout, targetId, when){
         WHERE task.assigned_user_id = ${targetId} 
         GROUP BY CONCAT(YEAR(task_complete.complete_date), '-', 
         MONTH(task_complete.complete_date)
-      );
+      );`;
   try {
     // query the database
     let queryData = await execute_sql_query(sql_query);
