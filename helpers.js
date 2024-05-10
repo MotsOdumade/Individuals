@@ -266,26 +266,40 @@ function generateHexColors(numColors) {
 function task_weight_breakdown_request(targetId){
       // sampleData component can be used directly in Chart js's Chart(pieCtx, {}) function
       const title = "Task Weight Breakdown";
+      const sql_query = `SELECT name, weight FROM task WHERE assigned_user_id = ${targetId};`;
       const sampleData = {
-    type: 'pie',
-    data: {
-        labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6'],
-        datasets: [{
-            label: 'Task Weight',
-            data: [10, 5, 15, 30, 20, 20],
-            backgroundColor: ['#d62728 ', '#9467bd ', '#2ca02c', '#1f77b4', '#ff7f0e', '#ffbb00']
-        }]
-    },
-    options: {
-        title: {
-            display: true,
-            text: 'Task Status'
-        },
-        responsive: false
-    }
-  };
+          type: 'pie',
+          data: {
+              labels: [],
+              datasets: [{
+                  label: 'Task Weight',
+                  data: [],
+                  backgroundColor: []
+              }]
+          },
+          options: {
+              title: {
+                  display: true,
+                  text: 'Task Status'
+              },
+              responsive: false
+          }
+      };
       
-      
+      try {
+          // query the database
+          let queryData = await execute_sql_query(sql_query);
+          for (let i = 0; i < queryData.length; i++){
+                 sampleData['data']['labels'].push(queryData[i]['name']);
+                 sampleData['data']['datasets']['data'].push(queryData[i]['weight']);
+           }
+          sampleData['data']['datasets']['backgroundColor'] = generateHexColors(queryData.length);
+          console.log("task_weight_breakdown_request has waited for sql query and got back this many rows", queryData.length);
+          return {'title': title, 'sampleData': sampleData};
+      } catch (error) {
+          console.error('Error executing SQL query:', error);
+          // Handle the error here
+      }
 
       
       
