@@ -262,7 +262,10 @@ async function weekly_completion_request(targetId){
            sampleData['data']['labels'].push(getMonthFromDateStr(queryData[i]['Month']));
            sampleData['data']['datasets'][0]['data'].push(queryData[i]['TotalWeight']);
      }
-    
+    // plot data from earliest to most recent
+    sampleData['data']['labels'].reverse();
+    sampleData['data']['datasets'][0]['data'].reverse();
+      
     console.log("weekly_completion_request has waited for sql query and got back this many rows", queryData.length);
     return {'title': title, 'sampleData': sampleData};
   } catch (error) {
