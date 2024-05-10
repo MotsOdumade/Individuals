@@ -89,11 +89,18 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   return res.json(responseObj);
                   break;
             case "weekly-task-completion":
-                  // a line chart showing the (weighted) task completion over time (by week)
-                  const weeklyCompletionObj = weekly_completion_request(dataAbout, targetId, when);
-                  responseObj['suggested-title'] = weeklyCompletionObj['title'];
-                  responseObj['analytics-data'] = weeklyCompletionObj['sampleData'];
-                  return res.json(responseObj);
+                  // a line chart showing the (weighted) task completion over time (by Month not by Week)
+                  weekly_completion_request(targetId)
+                      .then(weeklyCompletionObj => {
+                          responseObj['suggested-title'] = weeklyCompletionObj['title'];
+                          responseObj['analytics-data'] = weeklyCompletionObj['sampleData'];
+                          res.json(responseObj);
+                      })
+                      .catch(error => {
+                          console.error('Error fetching monthly completion:', error);
+                          // Handle the error here
+                          res.status(500).json({ error: 'Internal server error' });
+                      });
                   break;
             case "num-projects":
             // a stat describing the number of projects that an individual is currently associated with
