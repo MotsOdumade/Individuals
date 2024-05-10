@@ -96,11 +96,16 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   responseObj['analytics-data'] = weeklyCompletionObj['sampleData'];
                   break;
             case "num-projects":
-                  // a stat describing the number of projects that an individual is currently associated with
-                  const numProjectsObj = num_projects_request(dataAbout, targetId, when);
-                  responseObj['suggested-title'] = numProjectsObj['title'];
-                  responseObj['analytics-data'] = numProjectsObj['sampleData'];
-                  break;
+                // a stat describing the number of projects that an individual is currently associated with
+                try {
+                    const numProjectsObj = await num_projects_request(dataAbout, targetId, when);
+                    responseObj['suggested-title'] = numProjectsObj['title'];
+                    responseObj['analytics-data'] = numProjectsObj['sampleData'];
+                } catch (error) {
+                    console.error('Error fetching number of projects:', error);
+                    // Handle the error here
+                }
+                break;
             case "num-tasks":
                   // a stat describing the number of tasks that an individual is currently associated with
                   const numTasksObj = num_tasks_request(dataAbout, targetId, when);
