@@ -228,7 +228,31 @@ function weekly_completion_request(dataAbout, targetId, when){
         }
     };
   const title = 'Weighted Task Completion this Week';
-  return {'title': title, 'sampleData': sampleData};
+  const sql_query = SELECT CONCAT(
+        YEAR(task_complete.complete_date),'-', 
+        MONTH(task_complete.complete_date)) AS Month, 
+        SUM(task.weight) AS TotalWeight 
+        FROM task_complete 
+        INNER JOIN task ON task_complete.task_id = task.id 
+        WHERE task.assigned_user_id = ${targetId} 
+        GROUP BY CONCAT(YEAR(task_complete.complete_date), '-', 
+        MONTH(task_complete.complete_date)
+      );
+  try {
+    // query the database
+    let queryData = await execute_sql_query(sql_query);
+    for (let i = 0; i < queryData.length; i++){
+           sampleData['data']['labels'].push(queryData[i]['Month']);
+           sampleData['data']['datasets'][0]['data'].push(queryData[i]['TotalWeight']);
+     }
+    
+    console.log("weekly_completion_request has waited for sql query and got back this many rows", queryData.length);
+    return {'title': title, 'sampleData': sampleData};
+  } catch (error) {
+          console.error('Error executing SQL query:', error);
+          // Handle the error here
+      }
+  
 }
 
 function member_projects_request(targetId){
