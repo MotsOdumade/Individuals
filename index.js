@@ -26,6 +26,11 @@ const HTTP_PORT = 3001;
 // Define your Express routes here
 // ------ handle GET requests to /v1/individual-analytics -----------------------
 
+// Add CORS middleware
+const cors = require('cors');
+app.use(cors());
+
+
 app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
       
        // clean query parameters
