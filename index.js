@@ -111,7 +111,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   break;
             case "num-tasks":
                   // a stat describing the number of tasks that an individual is currently associated with
-                  const numTasksObj = num_tasks_request(dataAbout, targetId, when)
+                  num_tasks_request(dataAbout, targetId, when)
                         .then(numTasksObj => {
                               responseObj['suggested-title'] = numTasksObj['title'];
                               responseObj['analytics-data'] = numTasksObj['sampleData'];
