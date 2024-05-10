@@ -140,7 +140,7 @@ async function num_projects_request(dataAbout, targetId, when){
     if (queryData.length > 0){
       sampleData = queryData[0]["Projects"];
     } 
-      console.log("num_projects has waited for sql query and got back", queryData);
+      console.log("num_projects has waited for sql query and got back this many rows", queryData.length);
     return {'title': title, 'sampleData': sampleData};
   } catch (error) {
     console.error('Error executing SQL query:', error);
