@@ -131,10 +131,19 @@ function task_status_request(dataAbout, targetId, when){
 
 function num_projects_request(dataAbout, targetId, when){
   const title = 'Number of Current Projects';
+  let sql_query = `SELECT COUNT(*) AS Projects
+        FROM project 
+              JOIN project_team_member 
+                    ON project.id = project_team_member.project_id 
+                          WHERE project_team_member.user_id = ${targetId} 
+                                AND STR_TO_DATE('2024-05-17 13:42:04', '%Y-%m-%d %H:%i:%s') < project.deadline;`;
   let sampleData = 0;
   // query the database
+  let queryData = execute_sql_query(sql_query);
+  if (queryData.length > 0){
+        sampleData = queryData[0]["Projects"];
+  }
   
-  sampleData = 4;
   return {'title': title, 'sampleData': sampleData};
 }
 
