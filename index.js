@@ -131,7 +131,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   return res.json(responseObj);
                   break;
             case "task-weight-breakdown":
-                  task_weight_breakdown_request(dataAbout, targetId, when)
+                  task_weight_breakdown_request(targetId)
                       .then(taskWeightsObj => {
                           responseObj['suggested-title'] = taskWeightsObj['title'];
                           responseObj['analytics-data'] = taskWeightsObj['sampleData'];
