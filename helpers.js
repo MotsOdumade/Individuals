@@ -291,7 +291,7 @@ async function task_weight_breakdown_request(targetId){
           let queryData = await execute_sql_query(sql_query);
           for (let i = 0; i < queryData.length; i++){
                  sampleData['data']['labels'].push(queryData[i]['name']);
-                 sampleData['data']['datasets']['data'].push(queryData[i]['weight']);
+                 //sampleData['data']['datasets']['data'].push(queryData[i]['weight']);
            }
           sampleData['data']['datasets']['backgroundColor'] = generateHexColors(queryData.length);
           console.log("task_weight_breakdown_request has waited for sql query and got back this many rows", queryData.length);
