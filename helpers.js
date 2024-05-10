@@ -151,7 +151,7 @@ async function num_projects_request(dataAbout, targetId, when){
 }
 async function num_tasks_request(dataAbout, targetId, when){
   const title = 'Number of Active Tasks';
-  let sql_not_started = `SELECT COUNT(*) 
+  let sql_not_started = `SELECT COUNT(*) as Tasks
   FROM task 
   LEFT JOIN task_start 
   ON task.id = task_start.task_id 
