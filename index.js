@@ -115,7 +115,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                         .then(numTasksObj => {
                               responseObj['suggested-title'] = numTasksObj['title'];
                               responseObj['analytics-data'] = numTasksObj['sampleData'];
-                              return res.json(responseObj);
+                              res.json(responseObj);
                         })
                         .catch(error => {
                               console.error('Error fetching number of tasks:', error);
