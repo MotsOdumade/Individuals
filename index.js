@@ -10,7 +10,8 @@ const {
       deadlines_met_request,
       weekly_completion_request,
       member_projects_request,
-      task_weight_breakdown_request
+      task_weight_breakdown_request,
+      employee_role_request
 } = require('./helpers');
 
 const express = require('express');
@@ -142,6 +143,20 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                       .then(taskWeightsObj => {
                           responseObj['suggested-title'] = taskWeightsObj['title'];
                           responseObj['analytics-data'] = taskWeightsObj['sampleData'];
+                          res.json(responseObj);
+                      })
+                      .catch(error => {
+                          console.error('Error fetching number of projects:', error);
+                          // Handle the error here
+                          res.status(500).json({ error: 'Internal server error' });
+                      });
+                  break;
+            case "employee-role":
+            // a stat describing the number of tasks that an individual is currently associated with
+                  employee_role_request(targetId)
+                      .then(employeeRoleObj => {
+                          responseObj['suggested-title'] = employeeRoleObj['title'];
+                          responseObj['analytics-data'] = employeeRoleObj['sampleData'];
                           res.json(responseObj);
                       })
                       .catch(error => {
