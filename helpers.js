@@ -12,7 +12,8 @@ const dataChartDict = {
       'num-projects': 'stat',
       'member-projects': 'list',
       'task-weight-breakdown': 'pie',
-      'num-tasks': 'stat'
+      'num-tasks': 'stat',
+      'employee-role': 'role'
       // performance-report ought to be broken down further
 };
 
@@ -367,5 +368,32 @@ async function task_weight_breakdown_request(targetId){
       return {'title': title, 'sampleData': sampleData};
 }
 
+async function employee_role_request(targetId){
+      const title = 'Role of Current User';
+  let sql_query = `SELECT DISTINCT 
+          CASE  
+              WHEN p.lead_id IS NOT NULL THEN 'Project Leader' 
+              ELSE u.role  
+          END AS role 
+      FROM user u 
+      LEFT JOIN project p ON u.id = p.lead_id 
+      WHERE ${targetId}; `;
+  let sampleData = "";
+  try {
+    // query the database
+    let queryData = await execute_sql_query(sql_query);
+    sampleData = queryData;
+      console.log("num_projects has waited for sql query and got back this many rows", queryData.length);
+    return {'title': title, 'sampleData': sampleData};
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    // Handle the error here
+  }
+  
+}
 
-module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, num_tasks_request, deadlines_met_request, weekly_completion_request, member_projects_request, task_weight_breakdown_request};
+
+
+
+
+module.exports = {valid_request, authorised, data_to_chart, task_status_request, num_projects_request, num_tasks_request, deadlines_met_request, weekly_completion_request, member_projects_request, task_weight_breakdown_request, employee_role_request};
