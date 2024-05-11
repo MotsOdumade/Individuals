@@ -160,7 +160,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                           res.json(responseObj);
                       })
                       .catch(error => {
-                          console.error('Error fetching user's role:', error);
+                          console.error("Error fetching user's role:", error);
                           // Handle the error here
                           res.status(500).json({ error: 'Internal server error' });
                       });
