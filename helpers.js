@@ -382,7 +382,7 @@ async function employee_role_request(targetId){
   try {
     // query the database
     let queryData = await execute_sql_query(sql_query);
-    sampleData = queryData;
+    sampleData = queryData[0]['role'];
       console.log("num_projects has waited for sql query and got back this many rows", queryData.length);
     return {'title': title, 'sampleData': sampleData};
   } catch (error) {
