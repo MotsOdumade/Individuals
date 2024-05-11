@@ -377,7 +377,7 @@ async function employee_role_request(targetId){
           END AS role 
       FROM user u 
       LEFT JOIN project p ON u.id = p.lead_id 
-      WHERE ${targetId}; `;
+      WHERE u.id = ${targetId}; `;
   let sampleData = "";
   try {
     // query the database
