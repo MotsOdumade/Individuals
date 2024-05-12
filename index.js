@@ -133,10 +133,17 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   break;
             case "member-projects":
                   // returning a list of objects representing the projects that the user is a member of 
-                  const memberProjectsObj = member_projects_request(targetId);
-                  responseObj['suggested-title'] = memberProjectsObj['title'];
-                  responseObj['analytics-data'] = memberProjectsObj['sampleData'];
-                  return res.json(responseObj);
+                  member_projects_request(targetId)
+                      .then(memberProjectsObj => {
+                          responseObj['suggested-title'] = memberProjectsObj['title'];
+                          responseObj['analytics-data'] = memberProjectsObj['sampleData'];
+                          res.json(responseObj);
+                      })
+                      .catch(error => {
+                          console.error('Error fetching member projects:', error);
+                          // Handle the error here
+                          res.status(500).json({ error: 'Internal server error' });
+                      });
                   break;
             case "task-weight-breakdown":
                   task_weight_breakdown_request(targetId)
