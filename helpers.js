@@ -282,7 +282,7 @@ async function member_projects_request(targetId){
   const title = 'Projects Leading';
   let sampleData;
   // query the database
-  let query_all_projects = `SELECT name as 'project-name', id as 'project-id' FROM project;`;
+  let query_all_projects = `SELECT distinct name as 'project-name', id as 'project-id' FROM project;`;
   let query_projects_in = `SELECT project_id as id, name from task where assigned_user_id = ${targetId};`;
   let roleQuery = `SELECT COUNT(*) as count FROM user WHERE role LIKE "Manager" AND id = ${targetId};`; 
   let query2;
