@@ -111,7 +111,7 @@ function data_to_chart(data_requested){
 
 // ---- functions to execute requests
 
-function task_status_request(dataAbout, targetId, when){
+function task_status_request(targetId){
   const title = 'Status of Current Tasks';
   let sampleData = [];
   // query the database
@@ -126,7 +126,7 @@ function task_status_request(dataAbout, targetId, when){
 }
 
 
-async function num_projects_request(dataAbout, targetId, when){
+async function num_projects_request(targetId){
   const title = 'Number of Current Projects';
   let sql_query = `SELECT COUNT(*) AS Projects
         FROM project 
@@ -150,7 +150,7 @@ async function num_projects_request(dataAbout, targetId, when){
   
   
 }
-async function num_tasks_request(dataAbout, targetId, when){
+async function num_tasks_request(targetId){
   const title = 'Number of Active Tasks';
   let sql_not_started = `SELECT COUNT(*) as Tasks
         FROM task 
@@ -198,7 +198,7 @@ async function num_tasks_request(dataAbout, targetId, when){
 }
 
 
-function deadlines_met_request(dataAbout, targetId, when){
+function deadlines_met_request(targetId){
   const title = 'Number of Deadlines Met';
   let sampleData = [
     ['Deadlines Met', 5],
