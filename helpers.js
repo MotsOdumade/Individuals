@@ -295,7 +295,7 @@ async function member_projects_request(targetId){
       console.log("manaher?", roleQueryData[0]['count'] );
     if (roleQueryData[0]['count'] == 0){
       // not a manager
-      query2 = query_projects_leading;
+      query2 = query_projects_in;
     } else { // maybe a leader
       query2 = query_all_projects;
     }
