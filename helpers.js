@@ -276,21 +276,26 @@ async function weekly_completion_request(targetId){
   
 }
 
-function member_projects_request(targetId){
+async function member_projects_request(targetId){
   // returns a list of objects representing the projects that the individual is currently in
   const title = 'Projects Involved In';
   let sampleData = [];
-  // query the database
-  
-  sampleData = [
-    {'project-id': '1201', 'project-name': 'Skill Swap Initiative'},
-    {'project-id': '1205', 'project-name': 'Office Connect Project'},
-    {'project-id': '1202', 'project-name': 'CSR Campaign'},
-    {'project-id': '1204', 'project-name': 'Employee Training'},
-    {'project-id': '1209', 'project-name': 'Volunteering Campaign'},
-    {'project-id': '1207', 'project-name': 'Management System Upgrade'},
-    {'project-id': '1200', 'project-name': 'Risk Management Review'},
-  ];
+  let sql_query = `SELECT p.id, p.name 
+      FROM project_team_member ptm 
+      JOIN project p ON ptm.project_id = p.id 
+      WHERE ptm.user_id = ${targetId}; `;
+  try {
+    // query the database
+    let queryData = await execute_sql_query(sql_query);
+    for (let i = 0; i < queryData.length; i++){
+          sampleData.push(queryData[i]);
+    }
+      console.log("member_projects has waited for sql query and got back this many rows", queryData.length);
+    return {'title': title, 'sampleData': sampleData};
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    // Handle the error here
+  }
   
   return {'title': title, 'sampleData': sampleData};
 }
