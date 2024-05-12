@@ -77,14 +77,14 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
       switch (dataRequested) {
             case "task-status-proportions":
                   // a pie chart showing proportion of current tasks that are in progress, not started or completed
-                  const taskStatusObj = task_status_request(dataAbout, targetId, when);
+                  const taskStatusObj = task_status_request(targetId);
                   responseObj['suggested-title'] = taskStatusObj['title'];
                   responseObj['analytics-data'] = taskStatusObj['sampleData'];
                   return res.json(responseObj);
                   break;
             case "deadlines-met":
                   // a progress-bar showing the proportion of deadlines that the individual has met in the last 7 days
-                  const deadlinesMetObj = deadlines_met_request(dataAbout, targetId, when);
+                  const deadlinesMetObj = deadlines_met_request(targetId);
                   responseObj['suggested-title'] = deadlinesMetObj['title'];
                   responseObj['analytics-data'] = deadlinesMetObj['sampleData'];
                   return res.json(responseObj);
@@ -105,7 +105,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   break;
             case "num-projects":
             // a stat describing the number of projects that an individual is currently associated with
-                  num_projects_request(dataAbout, targetId, when)
+                  num_projects_request(targetId)
                       .then(numProjectsObj => {
                           responseObj['suggested-title'] = numProjectsObj['title'];
                           responseObj['analytics-data'] = numProjectsObj['sampleData'];
@@ -119,7 +119,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   break;
             case "num-tasks":
             // a stat describing the number of tasks that an individual is currently associated with
-                  num_tasks_request(dataAbout, targetId, when)
+                  num_tasks_request(targetId)
                       .then(numTasksObj => {
                           responseObj['suggested-title'] = numTasksObj['title'];
                           responseObj['analytics-data'] = numTasksObj['sampleData'];
