@@ -282,19 +282,31 @@ async function member_projects_request(targetId){
   const title = 'Projects Leading';
   let sampleData;
   // query the database
-  let query_all_projects = `SELECT distinct name as 'project-name', id as 'project-id' FROM project;`;
-  let query_projects_in = `SELECT project_id as id, name from task where assigned_user_id = ${targetId};`;
-  let roleQuery = `SELECT COUNT(*) as count FROM user WHERE role LIKE "Manager" AND id = ${targetId};`; 
+  let query_all_projects = `SELECT p.id, p.name 
+      FROM project_team_member ptm 
+      JOIN project p ON ptm.project_id = p.id; `;
+  let query_projects_in = `SELECT p.id, p.name 
+      FROM project_team_member ptm 
+      JOIN project p ON ptm.project_id = p.id 
+      WHERE ptm.user_id = ${targetId};`;
+  let roleQuery = `SELECT DISTINCT 
+    CASE  
+        WHEN p.lead_id IS NOT NULL THEN 'Project Leader' 
+        ELSE u.role  
+    END AS role 
+FROM user u 
+LEFT JOIN project p ON u.id = p.lead_id 
+WHERE u.id = 1`; 
   let query2;
   try {
     // query the database
     let roleQueryData = await execute_sql_query(roleQuery);
-      console.log("manaher?", roleQueryData[0]['count'] );
-    if (roleQueryData[0]['count'] == 0){
-      // not a manager
-      query2 = query_projects_in;
-    } else { // maybe a leader
+      console.log("manaher?", roleQueryData[0]["role"] );
+    if (roleQueryData[0]["role"] == "Manager"){
+      //a manager
       query2 = query_all_projects;
+    } else { // maybe a leader
+      query2 = query_projects_in;
     }
     
     try {
