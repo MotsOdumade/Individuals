@@ -278,24 +278,43 @@ async function weekly_completion_request(targetId){
 
 async function member_projects_request(targetId){
   // returns a list of objects representing the projects that the individual is currently in
-  const title = 'Projects Involved In';
-  let sampleData = [];
-  let sql_query = `SELECT p.id, p.name 
+// returns a list of objects representing the projects that the individual is currently in
+  const title = 'Projects Leading';
+  let sampleData;
+  // query the database
+  let query_all_projects = `SELECT name as 'project-name', id as 'project-id' FROM project;`;
+  let query_projects_in = `SELECT p.id, p.name 
       FROM project_team_member ptm 
       JOIN project p ON ptm.project_id = p.id 
-      WHERE ptm.user_id = ${targetId}; `;
+      WHERE ptm.user_id = ${targetId};`;
+  let roleQuery = `SELECT COUNT(*) as count FROM user WHERE role LIKE "Manager" AND id = ${targetId};`; 
+  let query2;
   try {
     // query the database
-    let queryData = await execute_sql_query(sql_query);
-    for (let i = 0; i < queryData.length; i++){
-          sampleData.push(queryData[i]);
+    let roleQueryData = await execute_sql_query(roleQuery);
+      console.log("manaher?", roleQueryData[0]['count'] );
+    if (roleQueryData[0]['count'] == 0){
+      // not a manager
+      query2 = query_projects_leading;
+    } else { // maybe a leader
+      query2 = query_all_projects;
     }
-      console.log("member_projects has waited for sql query and got back this many rows", queryData.length);
-    return {'title': title, 'sampleData': sampleData};
-  } catch (error) {
-    console.error('Error executing SQL query:', error);
-    // Handle the error here
-  }
+    
+    try {
+          // query the database
+          let queryData2 = await execute_sql_query(query2);
+          sampleData = queryData2;
+          return {'title': title, 'sampleData': sampleData};
+        } catch (error) {
+          console.error('Error executing SQL query:', error);
+          // Handle the error here
+        }
+          
+      } catch (error) {
+          console.error('Error executing SQL query:', error);
+          // Handle the error here
+      }
+  
   
   return {'title': title, 'sampleData': sampleData};
 }
