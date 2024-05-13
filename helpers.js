@@ -118,7 +118,7 @@ async function task_status_request(targetId){
   
   sampleData = {'Complete': 3,
         'In Progress': 1,
-        'Not Started': 2};
+        'Overdue': 2};
   let sql_query = `SELECT COUNT(*) as Tasks
       FROM task 
       INNER JOIN task_complete ON task.id = task_complete.task_id 
@@ -128,17 +128,20 @@ async function task_status_request(targetId){
       INNER JOIN task_start ON task.id = task_start.task_id 
       LEFT JOIN task_complete ON task.id = task_complete.task_id 
       WHERE task_complete.task_id IS NULL AND deadline > STR_TO_DATE('2024-05-17 13:42:04', '%Y-%m-%d %H:%i:%s') AND assigned_user_id = ${targetId} 
-      UNION ALL SELECT COUNT(*) as Tasks
+      UNION ALL SELECT COUNT(*) AS Task 
       FROM task 
-      LEFT JOIN task_start ON task.id = task_start.task_id 
-      WHERE task_start.task_id IS NULL AND  deadline > STR_TO_DATE('2024-05-17 13:42:04', '%Y-%m-%d %H:%i:%s') AND assigned_user_id = ${targetId};`;
+      LEFT JOIN task_complete 
+      ON task.id = task_complete.task_id 
+      WHERE task.assigned_user_id = ${targetId} 
+      AND (task_complete.complete_date > task.deadline OR task_complete.complete_date IS NULL) 
+      AND task.deadline >= DATE_SUB('2024-05-17 13:42:04', INTERVAL 7 DAY); ;`;
   try {
     // query the database
     let queryData = await execute_sql_query(sql_query);
     if (queryData.length > 0){
       sampleData["Complete"] = queryData[0]["Tasks"];
       sampleData["In Progress"] = queryData[1]["Tasks"];
-      sampleData["Not Started"] = queryData[2]["Tasks"];
+      sampleData["Overdue"] = queryData[2]["Tasks"];
     } 
       
     return {'title': title, 'sampleData': sampleData};
