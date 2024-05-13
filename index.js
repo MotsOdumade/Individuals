@@ -76,11 +76,19 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
       // they're authorised - carry out the request
       switch (dataRequested) {
             case "task-status-proportions":
-                  // a pie chart showing proportion of current tasks that are in progress, not started or completed
-                  const taskStatusObj = task_status_request(targetId);
-                  responseObj['suggested-title'] = taskStatusObj['title'];
-                  responseObj['analytics-data'] = taskStatusObj['sampleData'];
-                  return res.json(responseObj);
+                  // a progress bar showing proportion of current tasks that are in progress, not started or completed
+                  
+                  task_status_request(targetId)
+                      .then(weeklyCompletionObj => {
+                          responseObj['suggested-title'] = taskStatusObj['title'];
+                          responseObj['analytics-data'] = taskStatusObj['sampleData'];
+                          res.json(responseObj);
+                      })
+                      .catch(error => {
+                          console.error('Error task status proportions:', error);
+                          // Handle the error here
+                          res.status(500).json({ error: 'Internal server error' });
+                      });
                   break;
             case "deadlines-met":
                   // a progress-bar showing the proportion of deadlines that the individual has met in the last 7 days
