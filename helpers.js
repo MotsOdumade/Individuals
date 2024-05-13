@@ -118,8 +118,7 @@ async function task_status_request(targetId){
   
   sampleData = {'Complete': 3,
         'In Progress': 1,
-        'Not Started': 2}
-  ];
+        'Not Started': 2};
   let sql_query = `SELECT COUNT(*) as Tasks
       FROM task 
       INNER JOIN task_complete ON task.id = task_complete.task_id 
