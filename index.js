@@ -79,7 +79,7 @@ app.get('/v1.1/data-analytics/individual-analytics', (req, res) => {
                   // a progress bar showing proportion of current tasks that are in progress, not started or completed
                   
                   task_status_request(targetId)
-                      .then(weeklyCompletionObj => {
+                      .then(taskStatusObj => {
                           responseObj['suggested-title'] = taskStatusObj['title'];
                           responseObj['analytics-data'] = taskStatusObj['sampleData'];
                           res.json(responseObj);
