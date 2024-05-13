@@ -8,7 +8,7 @@ require('dotenv').config();
 const dataChartDict = {
       'weekly-task-completion': 'line',
       'deadlines-met': 'progressBar',
-      'task-status-proportions': 'pie',
+      'task-status-proportions': 'progressBar',
       'num-projects': 'stat',
       'member-projects': 'list',
       'task-weight-breakdown': 'pie',
@@ -111,18 +111,43 @@ function data_to_chart(data_requested){
 
 // ---- functions to execute requests
 
-function task_status_request(targetId){
+async function task_status_request(targetId){
   const title = 'Status of Current Tasks';
   let sampleData = [];
   // query the database
   
-  sampleData = [
-    ['Complete', 3],
-    ['In Progress', 1],
-    ['Not Started', 2]
+  sampleData = {'Complete': 3,
+        'In Progress': 1,
+        'Not Started': 2}
   ];
+  let sql_query = `SELECT COUNT(*) as Tasks
+      FROM task 
+      INNER JOIN task_complete ON task.id = task_complete.task_id 
+      WHERE deadline > STR_TO_DATE('2024-05-17 13:42:04', '%Y-%m-%d %H:%i:%s') AND assigned_user_id = ${targetId} 
+      UNION ALL SELECT COUNT(*) as Tasks
+      FROM task 
+      INNER JOIN task_start ON task.id = task_start.task_id 
+      LEFT JOIN task_complete ON task.id = task_complete.task_id 
+      WHERE task_complete.task_id IS NULL AND deadline > STR_TO_DATE('2024-05-17 13:42:04', '%Y-%m-%d %H:%i:%s') AND assigned_user_id = ${targetId} 
+      UNION ALL SELECT COUNT(*) as Tasks
+      FROM task 
+      LEFT JOIN task_start ON task.id = task_start.task_id 
+      WHERE task_start.task_id IS NULL AND  deadline > STR_TO_DATE('2024-05-17 13:42:04', '%Y-%m-%d %H:%i:%s') AND assigned_user_id = ${targetId};`;
+  try {
+    // query the database
+    let queryData = await execute_sql_query(sql_query);
+    if (queryData.length > 0){
+      sampleData["Complete"] = queryData[0]["Tasks"];
+      sampleData["In Progress"] = queryData[1]["Tasks"];
+      sampleData["Not Started"] = queryData[2]["Tasks"];
+    } 
+      
+    return {'title': title, 'sampleData': sampleData};
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    // Handle the error here
+  }
   
-  return {'title': title, 'sampleData': sampleData};
 }
 
 
@@ -145,8 +170,8 @@ async function num_projects_request(targetId){
     // Handle the error here
   }
   
-  
 }
+
 async function num_tasks_request(targetId){
   const title = 'Number of Active Tasks';
   let sql_not_started = `SELECT COUNT(*) as Tasks
