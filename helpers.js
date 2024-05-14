@@ -165,7 +165,7 @@ async function num_projects_request(targetId){
     // query the database
     let queryData = await execute_sql_query(sql_query);
     if (queryData.length > 0){
-      sampleData = queryData[0]["Projects"];
+      sampleData = queryData[0]["count(p.id)"];
     } 
       console.log("num_projects has waited for sql query and got back this many rows", queryData.length);
     return {'title': title, 'sampleData': sampleData};
