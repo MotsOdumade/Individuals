@@ -155,9 +155,11 @@ async function task_status_request(targetId){
 
 async function num_projects_request(targetId){
   const title = 'Number of Current Projects';
-  let sql_query = `SELECT COUNT(p.id) AS Projects FROM project_team_member ptm 
-      JOIN project p ON ptm.project_id = p.id 
-      WHERE ptm.user_id = 1`;
+
+  let sql_query = `SELECT count(p.id)       
+        FROM project_team_member ptm        
+        JOIN project p ON ptm.project_id = p.id        
+        WHERE ptm.user_id = ${targetId};`;
   let sampleData = 0;
   try {
     // query the database
