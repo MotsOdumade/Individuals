@@ -284,12 +284,12 @@ async function weekly_completion_request(targetId){
     // query the database
     let queryData = await execute_sql_query(sql_query);
     if (queryData.length < 1){
-          for (let i = 5; i < 0; i --){
+          for (let i = 5; i > 0; i --){
                 queryData.push({"Month":  `2024-${i}`,  "TotalWeight": 0 });
           }
     }
     if (queryData.length == 1){
-          for (let i = 4; i < 0; i --){
+          for (let i = 4; i > 0; i --){
                 queryData.push({"Month":  `2024-${i}`,  "TotalWeight": 0 });
           }
     }
