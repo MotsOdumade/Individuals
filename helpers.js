@@ -283,6 +283,16 @@ async function weekly_completion_request(targetId){
   try {
     // query the database
     let queryData = await execute_sql_query(sql_query);
+    if (queryData.length < 1){
+          for (let i = 5; i < 0; i --){
+                queryData.append({"Month":  `2024-${i}`,  "TotalWeight": 0 });
+          }
+    }
+    if (queryData.length == 1){
+          for (let i = 4; i < 0; i --){
+                queryData.append({"Month":  `2024-${i}`,  "TotalWeight": 0 });
+          }
+    }
     for (let i = 0; i < queryData.length; i++){
            sampleData['data']['labels'].push(getMonthFromDateStr(queryData[i]['Month']));
            sampleData['data']['datasets'][0]['data'].push(queryData[i]['TotalWeight']);
