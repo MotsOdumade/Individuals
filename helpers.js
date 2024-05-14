@@ -293,6 +293,7 @@ async function weekly_completion_request(targetId){
                 queryData.append({"Month":  `2024-${i}`,  "TotalWeight": 0 });
           }
     }
+   console.log("queryData", queryData);
     for (let i = 0; i < queryData.length; i++){
            sampleData['data']['labels'].push(getMonthFromDateStr(queryData[i]['Month']));
            sampleData['data']['datasets'][0]['data'].push(queryData[i]['TotalWeight']);
